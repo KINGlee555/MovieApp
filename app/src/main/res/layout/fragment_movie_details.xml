@@ -22,6 +22,15 @@
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
+        <RatingBar
+            android:id="@+id/movieRatingDetails"
+            style="?android:attr/ratingBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:layout_marginTop="8dp" />
+
         <TextView
             android:id="@+id/movieDescDetails"
             android:layout_width="wrap_content"

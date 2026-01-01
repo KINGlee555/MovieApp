@@ -78,11 +78,15 @@ class AllMoviesFragment : Fragment() {
             ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                val movieToDelete = adapter.getMovieAt(position)
+                // Use bindingAdapterPosition to get the current position in the adapter
+                val position = viewHolder.bindingAdapterPosition
 
-                // Call ViewModel to delete from Room
-                viewModel.deleteMovie(movieToDelete)
+                if (position != RecyclerView.NO_POSITION) {
+                    val movieToDelete = adapter.getMovieAt(position)
+
+                    // Call ViewModel to delete from Room
+                    viewModel.deleteMovie(movieToDelete)
+                }
             }
         })
 

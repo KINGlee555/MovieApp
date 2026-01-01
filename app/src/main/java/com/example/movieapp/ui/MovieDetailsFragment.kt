@@ -38,7 +38,7 @@ class MovieDetailsFragment : Fragment() {
             movie?.let {
                 binding.movieTitleDetails.text = it.title
                 binding.movieDescDetails.text = it.description
-
+                binding.movieRatingDetails.rating = it.rating
                 // Load the image using Glide
                 Glide.with(requireContext())
                     .load(it.imageUri)

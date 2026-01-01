@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentEditMovieBinding
 import com.example.movieapp.viewmodel.MovieViewModel
+import androidx.core.net.toUri
 
 class EditMovieFragment : Fragment() {
 
@@ -59,7 +60,7 @@ class EditMovieFragment : Fragment() {
                 binding.etRatingBarInput.rating = it.rating
 
                 if (it.imageUri != null) {
-                    binding.etMovieImageResult.setImageURI(Uri.parse(it.imageUri))
+                    binding.etMovieImageResult.setImageURI(it.imageUri.toUri())
                 }
             }
         }
