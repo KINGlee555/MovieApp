@@ -25,7 +25,7 @@ class MovieAdapter(
         fun bind(movie: Movie) {
             binding.movieTitle.text = movie.title
             binding.movieDescription.text = movie.description
-
+            binding.movieRating.rating = movie.rating
             // Loading the image using Glide from the URI stored in Room
             Glide.with(binding.root.context)
                 .load(movie.imageUri)

@@ -16,8 +16,11 @@ data class Movie(
     val description: String,
 
     @ColumnInfo(name = "image_uri")
-    val imageUri: String? // Stores the location of the photo
+    val imageUri: String?,
+
+    @ColumnInfo(name = "rating")
+    val rating: Float = 0f        // Default value is 0 stars
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0 // Room will auto-increment this ID
+    var id: Int = 0
 }

@@ -59,15 +59,21 @@ class AddMovieFragment : Fragment() {
         binding.btnSaveMovie.setOnClickListener {
             val title = binding.etMovieTitle.text.toString().trim()
             val description = binding.etMovieDescription.text.toString().trim()
+            val rating = binding.ratingBarInput.rating
 
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 // Create Movie object (Room will auto-generate ID)
-                val movie = Movie(title, description, selectedImageUri?.toString())
+                val movie = Movie(
+                    title = title,
+                    description = description,
+                    imageUri = selectedImageUri?.toString(),
+                    rating = rating // Passing the rating here
+                )
 
                 // Add to DB using ViewModel (runs on Coroutine)
                 viewModel.addMovie(movie)
 
-                Toast.makeText(requireContext(), "Movie Added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Movie Added with $rating stars!", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack() // Go back to list
             } else {
                 Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()

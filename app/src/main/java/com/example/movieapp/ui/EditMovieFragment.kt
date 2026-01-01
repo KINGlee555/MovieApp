@@ -50,12 +50,13 @@ class EditMovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Pre-fill the fields with existing movie data from ViewModel
+        //  Pre-fill the fields with existing movie data from ViewModel
         viewModel.chosenMovie.observe(viewLifecycleOwner) { movie ->
             movie?.let {
                 binding.etEditMovieTitle.setText(it.title)
                 binding.etEditMovieDescription.setText(it.description)
                 updatedImageUri = it.imageUri
+                binding.etRatingBarInput.rating = it.rating
 
                 if (it.imageUri != null) {
                     binding.etMovieImageResult.setImageURI(Uri.parse(it.imageUri))
@@ -72,7 +73,7 @@ class EditMovieFragment : Fragment() {
         binding.btnUpdateMovie.setOnClickListener {
             val title = binding.etEditMovieTitle.text.toString().trim()
             val description = binding.etEditMovieDescription.text.toString().trim()
-
+            val newRating = binding.etRatingBarInput.rating
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 val currentMovie = viewModel.chosenMovie.value
 
@@ -81,7 +82,8 @@ class EditMovieFragment : Fragment() {
                     val updatedMovie = currentMovie.copy(
                         title = title,
                         description = description,
-                        imageUri = updatedImageUri
+                        imageUri = updatedImageUri,
+                        rating = newRating // Saving the updated rating
                     )
                     updatedMovie.id = currentMovie.id // Ensure Room knows which record to update
 
