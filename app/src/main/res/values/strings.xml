@@ -6,4 +6,5 @@
     <string name="delete_movie_msg" />
     <string name="yes" />
     <string name="no" />
+    <string name="edit">Edit</string>
 </resources>
