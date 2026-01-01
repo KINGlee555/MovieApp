@@ -23,7 +23,6 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
         _chosenMovie.value = movie
     }
 
-    // Using viewModelScope to launch coroutines as learned in the course
     // This ensures that database operations don't block the UI thread
 
     fun addMovie(movie: Movie) = viewModelScope.launch {

@@ -16,5 +16,5 @@ interface MovieDao {
     suspend fun delete(movie: Movie)
 
     @Query("SELECT * FROM movies_table ORDER BY id DESC")
-    fun getAllMovies(): LiveData<List<Movie>> // LiveData is already asynchronous
+    fun getAllMovies(): LiveData<List<Movie>>
 }
