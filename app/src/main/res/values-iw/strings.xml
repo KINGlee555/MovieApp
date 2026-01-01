@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="no">לא</string>
+    <string name="edit">ערוך</string>
+    <string name="delete">מחק</string>
+    <string name="save_movie">שמור סרט</string>
+    <string name="hello_blank_fragment">שלום פרגמנט ריק</string>
+    <string name="delete_movie_title">מחיקת הסרט</string>
+    <string name="delete_movie_msg">האם אתה בטוח שברצונך למחוק את הסרט?</string>
+    <string name="yes">כן</string>
+    <string name="movie_title_hint">" כותרת הסרט"</string>
+    <string name="select_poster">בחר/י פוסטר</string>
+    <string name="description_hint">תיאור</string>
+    <string name="rating_label">דירוג:</string>
+    <string name="movie_added_toast">הסרט נוסף עם %1$f כוכבים!</string>
+    <string name="fill_all_fields_error">"אנא מלא/י את כל השדות "</string>
+</resources>

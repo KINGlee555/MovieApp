@@ -7,4 +7,12 @@
     <string name="yes" />
     <string name="no" />
     <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save_movie">Save Movie</string>
+    <string name="movie_title_hint">Movie Title</string>
+    <string name="select_poster">Select Poster</string>
+    <string name="description_hint">Description</string>
+    <string name="rating_label">Rating:</string>
+    <string name="movie_added_toast">Movie Added with %1$f stars!</string>
+    <string name="fill_all_fields_error">Please fill all fields</string>
 </resources>

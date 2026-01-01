@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.movieapp.R
 import com.example.movieapp.data.Movie
 import com.example.movieapp.databinding.FragmentAddMovieBinding
 import com.example.movieapp.viewmodel.MovieViewModel
@@ -73,10 +74,12 @@ class AddMovieFragment : Fragment() {
                 // Add to DB using ViewModel (runs on Coroutine)
                 viewModel.addMovie(movie)
 
-                Toast.makeText(requireContext(), "Movie Added with $rating stars!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.movie_added_toast, rating), Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack() // Go back to list
             } else {
-                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.fill_all_fields_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
