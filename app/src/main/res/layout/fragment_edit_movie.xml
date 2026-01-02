@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Movie Details"
+            android:text="@string/edit_movie_details"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -33,14 +33,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Change Poster" />
+            android:text="@string/change_poster" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Update Title">
+            android:hint="@string/update_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEditMovieTitle"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Update Description">
+            android:hint="@string/update_description">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEditMovieDescription"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Update Rating:"
+            android:text="@string/update_rating"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Save Changes"
+            android:text="@string/save_changes"
             android:padding="12dp"
             app:cornerRadius="8dp" />
 

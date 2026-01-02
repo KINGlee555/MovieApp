@@ -18,4 +18,10 @@
     <string name="recommended">מומלצים</string>
     <string name="my_movies">הסרטים שלי</string>
     <string name="add">הוסף</string>
+    <string name="update_rating">Update Rating:</string>
+    <string name="change_poster">Change Poster</string>
+    <string name="edit_movie_details">Edit Movie Details</string>
+    <string name="update_title">Update Title</string>
+    <string name="update_description">Update Description</string>
+    <string name="save_changes">Save Changes</string>
 </resources>
