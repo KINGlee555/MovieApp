@@ -15,4 +15,7 @@
     <string name="rating_label">Rating:</string>
     <string name="movie_added_toast">Movie Added with %1$f stars!</string>
     <string name="fill_all_fields_error">Please fill all fields</string>
+    <string name="recommended">Recommended</string>
+    <string name="my_movies">My Movies</string>
+    <string name="add">Add</string>
 </resources>

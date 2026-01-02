@@ -15,4 +15,7 @@
     <string name="rating_label">דירוג:</string>
     <string name="movie_added_toast">הסרט נוסף עם %1$f כוכבים!</string>
     <string name="fill_all_fields_error">"אנא מלא/י את כל השדות "</string>
+    <string name="recommended">מומלצים</string>
+    <string name="my_movies">הסרטים שלי</string>
+    <string name="add">הוסף</string>
 </resources>
