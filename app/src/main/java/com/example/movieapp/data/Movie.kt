@@ -19,8 +19,12 @@ data class Movie(
     val imageUri: String?,
 
     @ColumnInfo(name = "rating")
-    val rating: Float = 0f        // Default value is 0 stars
-) : Parcelable {
+    val rating: Float = 0f,       // Default value is 0 stars
+
+    @ColumnInfo(name = "isPublic")
+    val isPublic: Boolean = false
+
+    ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

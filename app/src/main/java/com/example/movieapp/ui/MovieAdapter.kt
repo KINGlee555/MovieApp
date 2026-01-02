@@ -12,7 +12,7 @@ class MovieAdapter(
     private val callback: MovieListener
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    // Interface to handle clicks on items as learned in class
+    // Interface to handle clicks on items
     interface MovieListener {
         fun onMovieClicked(movie: Movie)
         fun onMovieLongClicked(movie: Movie)

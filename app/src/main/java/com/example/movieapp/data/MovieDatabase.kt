@@ -21,7 +21,6 @@ abstract class MovieDatabase : RoomDatabase() {
                     MovieDatabase::class.java,
                     "movie_database"
                 )
-                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance

@@ -15,6 +15,12 @@ interface MovieDao {
     @Delete
     suspend fun delete(movie: Movie)
 
-    @Query("SELECT * FROM movies_table ORDER BY id DESC")
-    fun getAllMovies(): LiveData<List<Movie>>
+    @Query("SELECT * FROM movies_table WHERE isPublic = 1")
+    fun getPublicMovies(): LiveData<List<Movie>>
+
+    @Query("SELECT * FROM movies_table WHERE isPublic = 0")
+    fun getUserMovies(): LiveData<List<Movie>>
+
+    @Query("SELECT * FROM movies_table LIMIT 1")
+    suspend fun getAnyMovie(): Movie?
 }

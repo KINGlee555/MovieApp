@@ -60,6 +60,16 @@
                 android:text="@string/delete"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:textColor="@android:color/holo_red_dark"/>
+
+            <Button
+                android:id="@+id/btnAddToMyCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Add to My Collection"
+                android:backgroundTint="#6200EE"
+                android:textColor="@color/white"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

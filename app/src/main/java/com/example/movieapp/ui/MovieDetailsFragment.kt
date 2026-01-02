@@ -16,7 +16,6 @@ import com.example.movieapp.viewmodel.MovieViewModel
 
 class MovieDetailsFragment : Fragment() {
 
-    // Using activityViewModels to get the same instance shared with AllMoviesFragment
     private val viewModel: MovieViewModel by activityViewModels()
 
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -33,26 +32,45 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe the chosenMovie from the ViewModel
         viewModel.chosenMovie.observe(viewLifecycleOwner) { movie ->
-            movie?.let {
-                binding.movieTitleDetails.text = it.title
-                binding.movieDescDetails.text = it.description
-                binding.movieRatingDetails.rating = it.rating
-                // Load the image using Glide
+            movie?.let { currentMovie ->
+                binding.movieTitleDetails.text = currentMovie.title
+                binding.movieDescDetails.text = currentMovie.description
+                binding.movieRatingDetails.rating = currentMovie.rating
+
+                // Handle Image Loading
                 Glide.with(requireContext())
-                    .load(it.imageUri)
+                    .load(currentMovie.imageUri)
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .into(binding.movieImageDetails)
+
+                //  for Public vs User Movies
+                if (currentMovie.isPublic) {
+                    // It's a public movie: show Add button, hide Edit/Delete
+                    binding.btnAddToMyCollection.visibility = View.VISIBLE
+                    binding.btnEditMovie.visibility = View.GONE
+                    binding.btnDeleteMovie.visibility = View.GONE
+
+                    binding.btnAddToMyCollection.setOnClickListener {
+                        // Create a copy with isPublic = false and reset ID for new entry
+                        val movieToSave = currentMovie.copy(isPublic = false).apply { id = 0 }
+                        viewModel.addMovie(movieToSave)
+                        Toast.makeText(requireContext(), "Added to your collection!", Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                } else {
+                    // It's a user movie: hide Add button, show Edit/Delete
+                    binding.btnAddToMyCollection.visibility = View.GONE
+                    binding.btnEditMovie.visibility = View.VISIBLE
+                    binding.btnDeleteMovie.visibility = View.VISIBLE
+                }
             }
         }
 
-        // Navigate to Edit screen
         binding.btnEditMovie.setOnClickListener {
             findNavController().navigate(R.id.action_movieDetails_to_editMovie)
         }
 
-        // Delete button with AlertDialog (Required for "User Prompts" grade)
         binding.btnDeleteMovie.setOnClickListener {
             showDeleteDialog()
         }
@@ -63,20 +81,16 @@ class MovieDetailsFragment : Fragment() {
         builder.setTitle("Confirm delete")
         builder.setMessage("Are you sure you want to delete this movie?")
 
-        // Positive button to confirm deletion
         builder.setPositiveButton("Yes") { _, _ ->
             viewModel.chosenMovie.value?.let { movie ->
-                viewModel.deleteMovie(movie) // Delete from Room via ViewModel
-                Toast.makeText(requireContext(),"movie deleted",Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack() // Go back to the list
+                viewModel.deleteMovie(movie)
+                Toast.makeText(requireContext(), "Movie deleted", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             }
         }
 
-        // Negative button to cancel
-        builder.setNegativeButton("no",null)
-
-        val dialog = builder.create()
-        dialog.show()
+        builder.setNegativeButton("No", null)
+        builder.create().show()
     }
 
     override fun onDestroyView() {
