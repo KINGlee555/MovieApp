@@ -90,13 +90,15 @@ class EditMovieFragment : Fragment() {
 
                     viewModel.updateMovie(updatedMovie) // This uses viewModelScope (Coroutine)
 
-                    Toast.makeText(requireContext(), "Movie Updated!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.movie_updated), Toast.LENGTH_SHORT).show()
 
                     // Go back to the list screen (clear the backstack if needed)
                     findNavController().popBackStack(R.id.allMoviesFragment, false)
                 }
             } else {
-                Toast.makeText(requireContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.fields_cannot_be_empty), Toast.LENGTH_SHORT).show()
             }
         }
     }

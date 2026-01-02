@@ -18,10 +18,13 @@
     <string name="recommended">מומלצים</string>
     <string name="my_movies">הסרטים שלי</string>
     <string name="add">הוסף</string>
-    <string name="update_rating">Update Rating:</string>
-    <string name="change_poster">Change Poster</string>
-    <string name="edit_movie_details">Edit Movie Details</string>
-    <string name="update_title">Update Title</string>
-    <string name="update_description">Update Description</string>
-    <string name="save_changes">Save Changes</string>
+    <string name="update_rating">עדכן דירוג:</string>
+    <string name="change_poster">שנה פוסטר</string>
+    <string name="edit_movie_details">ערוך סרט</string>
+    <string name="update_title">עדכן כותרת</string>
+    <string name="update_description">עדכן תיאור</string>
+    <string name="save_changes">שמור שינויים</string>
+    <string name="add_to_my_collection">הוסף לסרטים שלי</string>
+    <string name="fields_cannot_be_empty">השדות לא יכולים להיות ריקים</string>
+    <string name="movie_updated">הסרט התעדכן!</string>
 </resources>

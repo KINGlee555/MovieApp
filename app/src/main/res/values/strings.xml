@@ -25,4 +25,6 @@
     <string name="update_title">Update Title</string>
     <string name="update_description">Update Description</string>
     <string name="save_changes">Save Changes</string>
+    <string name="fields_cannot_be_empty">Fields cannot be empty</string>
+    <string name="movie_updated">Movie Updated!</string>
 </resources>
