@@ -13,7 +13,7 @@
     <string name="select_poster">בחר/י פוסטר</string>
     <string name="description_hint">תיאור</string>
     <string name="rating_label">דירוג:</string>
-    <string name="movie_added_toast">הסרט נוסף עם %1$f כוכבים!</string>
+    <string name="movie_added_toast">הסרט נוסף עם %1$.0f כוכבים!</string>
     <string name="fill_all_fields_error">"אנא מלא/י את כל השדות "</string>
     <string name="recommended">מומלצים</string>
     <string name="my_movies">הסרטים שלי</string>
@@ -27,4 +27,8 @@
     <string name="add_to_my_collection">הוסף לסרטים שלי</string>
     <string name="fields_cannot_be_empty">השדות לא יכולים להיות ריקים</string>
     <string name="movie_updated">הסרט התעדכן!</string>
+    <string name="added_to_your_collection">נוסף לאוסף שלך!</string>
+    <string name="movie_deleted">הסרט נמחק</string>
+    <string name="confirm_delete">אישור מחיקה</string>
+    <string name="are_you_sure_you_want_to_delete_this_movie">האם את/ה בטוח/ה שיש למחוק את הסרט?</string>
 </resources>

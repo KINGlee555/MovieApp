@@ -55,7 +55,8 @@ class MovieDetailsFragment : Fragment() {
                         // Create a copy with isPublic = false and reset ID for new entry
                         val movieToSave = currentMovie.copy(isPublic = false).apply { id = 0 }
                         viewModel.addMovie(movieToSave)
-                        Toast.makeText(requireContext(), "Added to your collection!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),
+                            getString(R.string.added_to_your_collection), Toast.LENGTH_SHORT).show()
                         findNavController().popBackStack()
                     }
                 } else {
@@ -78,18 +79,19 @@ class MovieDetailsFragment : Fragment() {
 
     private fun showDeleteDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Confirm delete")
-        builder.setMessage("Are you sure you want to delete this movie?")
+        builder.setTitle(getString(R.string.confirm_delete))
+        builder.setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_movie))
 
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(R.string.yes) { _, _ ->
             viewModel.chosenMovie.value?.let { movie ->
                 viewModel.deleteMovie(movie)
-                Toast.makeText(requireContext(), "Movie deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.movie_deleted), Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         }
 
-        builder.setNegativeButton("No", null)
+        builder.setNegativeButton(R.string.no, null)
         builder.create().show()
     }
 

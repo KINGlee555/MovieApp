@@ -7,19 +7,19 @@ import com.example.movieapp.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// We use AndroidViewModel because we need the application context
+// AndroidViewModel because we need the application context
 class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = MovieRepository(application)
 
-    // 1. Separate LiveData for public and user movies
+    // Separate LiveData for public and user movies
     val publicMovies: LiveData<List<Movie>>? = repository.getPublicMovies()
     val userMovies: LiveData<List<Movie>>? = repository.getUserMovies()
 
     private val _chosenMovie = MutableLiveData<Movie>()
     val chosenMovie: LiveData<Movie> get() = _chosenMovie
 
-    // 2. The init block to check and pre-populate the DB on startup
+    // init block to check and pre-populate the DB on startup
     init {
         // Dispatchers.IO is used for database/network operations
         viewModelScope.launch(Dispatchers.IO) {

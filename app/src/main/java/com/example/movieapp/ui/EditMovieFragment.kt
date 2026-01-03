@@ -33,7 +33,7 @@ class EditMovieFragment : Fragment() {
             updatedImageUri = it.toString()
             binding.etMovieImageResult.setImageURI(it)
 
-            // Critical: Persist permission for the new image
+            // Persist permission for the new image
             requireActivity().contentResolver.takePersistableUriPermission(
                 it, Intent.FLAG_GRANT_READ_URI_PERMISSION
             )

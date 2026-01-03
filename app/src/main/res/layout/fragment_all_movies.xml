@@ -1,51 +1,71 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recommended"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/publicMovies"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_movies"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_margin="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userMovies"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recommended"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/publicMovies"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_movies"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_margin="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userMovies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="40dp"
         android:text="@string/add"
-        app:icon="@android:drawable/ic_input_add"/>
+        app:icon="@android:drawable/ic_input_add"
+        app:backgroundTint="?attr/colorPrimary"
+        android:textColor="@android:color/white"
+        app:iconTint="@android:color/white"/>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

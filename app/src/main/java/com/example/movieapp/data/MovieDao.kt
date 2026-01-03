@@ -21,6 +21,7 @@ interface MovieDao {
     @Query("SELECT * FROM movies_table WHERE isPublic = 0")
     fun getUserMovies(): LiveData<List<Movie>>
 
+    // For pre-populating the DB with public movies
     @Query("SELECT * FROM movies_table LIMIT 1")
     suspend fun getAnyMovie(): Movie?
 }

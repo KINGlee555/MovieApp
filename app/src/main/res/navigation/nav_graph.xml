@@ -60,6 +60,14 @@
         android:id="@+id/editMovieFragment"
         android:name="com.example.movieapp.ui.EditMovieFragment"
         android:label="Edit Movie"
-        tools:layout="@layout/fragment_edit_movie" />
+        tools:layout="@layout/fragment_edit_movie" >
+        <action
+            android:id="@+id/action_editMovieFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
 </navigation>

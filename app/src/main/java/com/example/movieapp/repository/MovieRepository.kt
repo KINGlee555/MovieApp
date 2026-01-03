@@ -46,7 +46,7 @@ class MovieRepository(application: Application) {
         }
     }
 
-    // Use suspend for background operations with Coroutines
+    // suspend for background operations with Coroutines
     suspend fun addMovie(movie: Movie) {
         movieDao?.insert(movie)
     }

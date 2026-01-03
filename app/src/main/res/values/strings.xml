@@ -4,8 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_movie_title" />
     <string name="delete_movie_msg" />
-    <string name="yes" />
-    <string name="no" />
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="save_movie">Save Movie</string>
@@ -13,7 +13,7 @@
     <string name="select_poster">Select Poster</string>
     <string name="description_hint">Description</string>
     <string name="rating_label">Rating:</string>
-    <string name="movie_added_toast">Movie Added with %1$f stars!</string>
+    <string name="movie_added_toast">Movie Added with %1$.0f stars!</string>
     <string name="fill_all_fields_error">Please fill all fields</string>
     <string name="recommended">Recommended</string>
     <string name="my_movies">My Movies</string>
@@ -27,4 +27,8 @@
     <string name="save_changes">Save Changes</string>
     <string name="fields_cannot_be_empty">Fields cannot be empty</string>
     <string name="movie_updated">Movie Updated!</string>
+    <string name="added_to_your_collection">Added to your collection!</string>
+    <string name="movie_deleted">Movie deleted</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="are_you_sure_you_want_to_delete_this_movie">Are you sure you want to delete this movie?</string>
 </resources>

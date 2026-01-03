@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,7 +24,7 @@ class AllMoviesFragment : Fragment() {
     private var _binding: FragmentAllMoviesBinding? = null
     private val binding get() = _binding!!
 
-    // Define two adapters: one for public movies and one for user movies
+    // two adapters: one for public movies and one for user movies
     private lateinit var userAdapter: MovieAdapter
     private lateinit var publicAdapter: MovieAdapter
 
@@ -39,12 +41,12 @@ class AllMoviesFragment : Fragment() {
 
         setupRecyclerViews()
 
-        // 1. Observe public movies (Recommended section)
+        // Observe public movies (Recommended section)
         viewModel.publicMovies?.observe(viewLifecycleOwner) { movieList ->
             publicAdapter.setMovies(movieList)
         }
 
-        // 2. Observe user movies (My Collection section)
+        // Observe user movies (My Movies section)
         viewModel.userMovies?.observe(viewLifecycleOwner) { movieList ->
             userAdapter.setMovies(movieList)
         }
@@ -98,7 +100,21 @@ class AllMoviesFragment : Fragment() {
                 val position = viewHolder.bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val movieToDelete = userAdapter.getMovieAt(position)
-                    viewModel.deleteMovie(movieToDelete)
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.confirm_delete)
+                        .setMessage(R.string.are_you_sure_you_want_to_delete_this_movie)
+                        .setCancelable(false) // Prevents closing by clicking outside
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            // User confirmed: Delete from ViewModel/DB
+                            viewModel.deleteMovie(movieToDelete)
+                            Toast.makeText(requireContext(), R.string.movie_deleted, Toast.LENGTH_SHORT).show()
+                        }
+                        .setNegativeButton(R.string.no) { dialog, _ ->
+                            // User cancelled: Restore the item in the UI
+                            userAdapter.notifyItemChanged(position)
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
             }
         })
