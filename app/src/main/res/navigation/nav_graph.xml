@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/allMoviesFragment">
-
-    <fragment
-        android:id="@+id/allMoviesFragment"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph" app:startDestination="@id/allMoviesFragment">
+    <fragment android:id="@+id/allMoviesFragment"
         android:name="com.example.movieapp.ui.AllMoviesFragment"
         android:label="My Movies"
         tools:layout="@layout/fragment_all_movies">
@@ -17,7 +10,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_allMovies_to_movieDetails"
@@ -25,7 +18,8 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
+
         <action
             android:id="@+id/action_allMovies_to_editMovie"
             app:destination="@id/editMovieFragment"
@@ -33,13 +27,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/addMovieFragment"
         android:name="com.example.movieapp.ui.AddMovieFragment"
         android:label="Add New Movie"
-        tools:layout="@layout/fragment_add_movie" />
+        tools:layout="@layout/fragment_add_movie"/>
 
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -54,20 +49,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/editMovieFragment"
         android:name="com.example.movieapp.ui.EditMovieFragment"
         android:label="Edit Movie"
-        tools:layout="@layout/fragment_edit_movie" >
-        <action
-            android:id="@+id/action_editMovieFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+        tools:layout="@layout/fragment_edit_movie">
     </fragment>
 
 </navigation>

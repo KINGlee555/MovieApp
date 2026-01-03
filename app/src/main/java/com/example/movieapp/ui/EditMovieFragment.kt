@@ -65,12 +65,12 @@ class EditMovieFragment : Fragment() {
             }
         }
 
-        // Option to change the image
+        // 2. Option to change the image
         binding.btnChangeImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
 
-        // Save the updated movie
+        // 3. Save the updated movie
         binding.btnUpdateMovie.setOnClickListener {
             val title = binding.etEditMovieTitle.text.toString().trim()
             val description = binding.etEditMovieDescription.text.toString().trim()
@@ -93,7 +93,8 @@ class EditMovieFragment : Fragment() {
                     Toast.makeText(requireContext(),
                         getString(R.string.movie_updated), Toast.LENGTH_SHORT).show()
 
-                    findNavController().popBackStack()
+                    //
+                    findNavController().popBackStack(R.id.allMoviesFragment, false)
                 }
             } else {
                 Toast.makeText(requireContext(),
