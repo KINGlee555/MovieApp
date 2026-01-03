@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Movie Poster - Height increased -->
         <ImageView
             android:id="@+id/movie_image"
             android:layout_width="120dp"
@@ -22,10 +21,8 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Content Area -->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
@@ -38,7 +35,6 @@
             app:layout_constraintStart_toEndOf="@id/movie_image"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Movie Title -->
             <TextView
                 android:id="@+id/movie_title"
                 android:layout_width="match_parent"
@@ -46,10 +42,8 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
-                android:textStyle="bold"
-                tools:text="Inception: A Really Long Movie Title That Wraps" />
+                android:textStyle="bold" />
 
-            <!-- Rating Bar -->
             <RatingBar
                 android:id="@+id/movie_rating"
                 style="?android:attr/ratingBarStyleSmall"
@@ -58,10 +52,9 @@
                 android:layout_marginTop="8dp"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:stepSize="0.1"
-                tools:rating="4.5" />
+                android:stepSize="1.0"/>
 
-            <!-- Movie Description -->
+
             <TextView
                 android:id="@+id/movie_description"
                 android:layout_width="match_parent"
@@ -69,8 +62,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                tools:text="A brief description of the movie goes here, detailing the plot and main characters in a way that is engaging." />
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
 
         </LinearLayout>
 

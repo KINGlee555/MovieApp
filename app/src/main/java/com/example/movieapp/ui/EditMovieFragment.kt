@@ -65,12 +65,12 @@ class EditMovieFragment : Fragment() {
             }
         }
 
-        // 2. Option to change the image
+        // Option to change the image
         binding.btnChangeImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
 
-        // 3. Save the updated movie
+        // Save the updated movie
         binding.btnUpdateMovie.setOnClickListener {
             val title = binding.etEditMovieTitle.text.toString().trim()
             val description = binding.etEditMovieDescription.text.toString().trim()
@@ -86,15 +86,14 @@ class EditMovieFragment : Fragment() {
                         imageUri = updatedImageUri,
                         rating = newRating // Saving the updated rating
                     )
-                    updatedMovie.id = currentMovie.id // Ensure Room knows which record to update
+                    updatedMovie.id = currentMovie.id
 
-                    viewModel.updateMovie(updatedMovie) // This uses viewModelScope (Coroutine)
+                    viewModel.updateMovie(updatedMovie)
 
                     Toast.makeText(requireContext(),
                         getString(R.string.movie_updated), Toast.LENGTH_SHORT).show()
 
-                    // Go back to the list screen (clear the backstack if needed)
-                    findNavController().popBackStack(R.id.allMoviesFragment, false)
+                    findNavController().popBackStack()
                 }
             } else {
                 Toast.makeText(requireContext(),

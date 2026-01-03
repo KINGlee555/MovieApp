@@ -33,7 +33,7 @@ class AddMovieFragment : Fragment() {
             selectedImageUri = it
             binding.movieImageResult.setImageURI(it) // Show preview in UI
 
-            // Persist permission to access this URI after app restarts (Critical for Room)
+            // Persist permission to access this URI after app restarts
             requireActivity().contentResolver.takePersistableUriPermission(
                 it, Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
@@ -63,7 +63,7 @@ class AddMovieFragment : Fragment() {
             val rating = binding.ratingBarInput.rating
 
             if (title.isNotEmpty() && description.isNotEmpty()) {
-                // Create Movie object (Room will auto-generate ID)
+                // Create Movie object
                 val movie = Movie(
                     title = title,
                     description = description,
@@ -71,7 +71,7 @@ class AddMovieFragment : Fragment() {
                     rating = rating // Passing the rating here
                 )
 
-                // Add to DB using ViewModel (runs on Coroutine)
+                // Add to DB using ViewModel
                 viewModel.addMovie(movie)
 
                 Toast.makeText(requireContext(),

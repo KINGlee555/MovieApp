@@ -12,7 +12,8 @@
             android:id="@+id/movieImageDetails"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery" />
 
         <TextView
             android:id="@+id/movieTitleDetails"
