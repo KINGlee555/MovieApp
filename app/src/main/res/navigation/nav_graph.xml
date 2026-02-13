@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_details_to_edit"
             app:destination="@id/editMovieFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 
     <fragment

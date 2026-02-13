@@ -36,15 +36,13 @@ class WatchListFragment : Fragment() {
 
         val watchListAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(movie: Movie) {
-                val bundle = bundleOf("id" to movie.id)
-                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundle)
+                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
             }
         })
 
         val historyAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(movie: Movie) {
-                val bundle = bundleOf("id" to movie.id)
-                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundle)
+                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
             }
         })
 

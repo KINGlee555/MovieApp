@@ -61,7 +61,7 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
     }
 
     override fun onMovieClick(movie: Movie) {
-        findNavController().navigate(R.id.action_allMovies_to_details, bundleOf("movieArgument" to movie))
+        findNavController().navigate(R.id.action_allMovies_to_details, bundleOf("id" to movie.id))
     }
     private fun setupNavigation() {
         binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_favorites) }

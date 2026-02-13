@@ -36,9 +36,7 @@ class FavoritesFragment : Fragment() {
 
         val favoriteAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(movie: Movie) {
-                // ניווט באמצעות Bundle
-                val bundle = bundleOf("id" to movie.id)
-                findNavController().navigate(R.id.action_favoritesFragment_to_movieDetailsFragment, bundle)
+                findNavController().navigate(R.id.action_favoritesFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
             }
         })
 
