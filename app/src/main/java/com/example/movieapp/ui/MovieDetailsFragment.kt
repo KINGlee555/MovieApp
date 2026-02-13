@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
 import com.example.movieapp.ui.viewmodel.MovieViewModel
+import com.example.movieapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.movieapp.utils.Loading
 import com.example.movieapp.utils.Success
 import com.example.movieapp.utils.Error
@@ -80,7 +81,9 @@ class MovieDetailsFragment : Fragment() {
         updateButtonsUI(movie.isFavorite, movie.isWatched)
 
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}") // TMDB path structure
+            .load(movie.getFullPosterPath())
+            .placeholder(android.R.drawable.ic_menu_gallery) // תמונת ברירת מחדל בזמן טעינה
+            .error(android.R.drawable.stat_notify_error)    // תמונה במקרה של שגיאה
             .into(binding.movieImage)
     }
 

@@ -38,12 +38,16 @@ class MovieRepository @Inject constructor(
     fun getMovie(id: Int) = performFetchingAndSaving(
         localDbFetch = { movieDao.getMovie(id) },
         remoteDbFetch = {
-            val response = movieService.getMovieDetails(id, Constants.API_KEY)
-            if (response.isSuccessful && response.body() != null) {
-                Resource.success(response.body()!!)
-            }
-            else {
-                Resource.error("Failed to fetch movie details")
+            val localMovie = movieDao.getMovieSync(id)
+            if (localMovie?.isManualEntry == true) {
+                Resource.success(localMovie)
+            } else {
+                val response = movieService.getMovieDetails(id, Constants.API_KEY)
+                if (response.isSuccessful && response.body() != null) {
+                    Resource.success(response.body()!!)
+                } else {
+                    Resource.error("Failed to fetch movie details from API")
+                }
             }
         },
         localDbSave = { remoteMovie -> movieDao.insertMovie(remoteMovie) }
@@ -52,7 +56,9 @@ class MovieRepository @Inject constructor(
     suspend fun updateMovie(movie: Movie) = withContext(Dispatchers.IO) {
         movieDao.updateMovie(movie)
     }
-
+    suspend fun insertMovie(movie: Movie) = withContext(Dispatchers.IO) {
+        movieDao.insertMovie(movie)
+    }
     suspend fun searchMovies(query: String) = withContext(Dispatchers.IO) {
         movieService.searchMovies(Constants.API_KEY, query)
     }

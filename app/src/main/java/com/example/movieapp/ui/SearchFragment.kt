@@ -37,9 +37,8 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val searchAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
-            override fun onMovieClick(movie: com.example.movieapp.data.models.Movie) {
-                val bundle = bundleOf("id" to movie.id)
-                findNavController().navigate(R.id.action_searchFragment_to_movieDetailsFragment, bundle)
+            override fun onMovieClick(id: Int ) {
+                findNavController().navigate(R.id.action_searchFragment_to_movieDetailsFragment, bundleOf("id" to id))
             }
         })
 

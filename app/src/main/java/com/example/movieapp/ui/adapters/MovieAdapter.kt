@@ -14,7 +14,7 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
     ListAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
     interface OnMovieClickListener {
-        fun onMovieClick(movie: Movie)
+        fun onMovieClick(id: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -41,7 +41,7 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
                 .into(binding.movieImage)
 
             binding.root.setOnClickListener {
-                listener.onMovieClick(movie)
+                listener.onMovieClick(id = movie.id)
             }
         }
     }

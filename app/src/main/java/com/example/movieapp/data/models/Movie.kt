@@ -5,13 +5,15 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import com.google.gson.annotations.SerializedName
+import com.example.movieapp.utils.Constants.Companion.IMAGE_BASE_URL
+
 
 
 @Entity(tableName = "movies")
 @Parcelize
 data class Movie(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int,
     val title: String,
     @SerializedName("poster_path")
     val posterPath: String?,
@@ -20,7 +22,8 @@ data class Movie(
     @SerializedName("vote_average")
     val rating: Double,
     var isFavorite: Boolean = false,
-    var isWatched: Boolean = false
+    var isWatched: Boolean = false,
+    var isManualEntry : Boolean = false
 ) : Parcelable {
-    fun getFullPosterPath() = "https://image.tmdb.org/t/p/w500$posterPath"
+    fun getFullPosterPath() = IMAGE_BASE_URL + posterPath
 }

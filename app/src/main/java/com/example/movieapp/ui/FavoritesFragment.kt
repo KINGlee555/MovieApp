@@ -35,8 +35,8 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val favoriteAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
-            override fun onMovieClick(movie: Movie) {
-                findNavController().navigate(R.id.action_favoritesFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
+            override fun onMovieClick(id: Int) {
+                findNavController().navigate(R.id.action_favoritesFragment_to_movieDetailsFragment, bundleOf("id" to id))
             }
         })
 

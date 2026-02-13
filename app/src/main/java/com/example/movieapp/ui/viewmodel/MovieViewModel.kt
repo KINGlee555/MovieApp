@@ -47,7 +47,11 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
-
+    fun addMovie(movie: Movie) {
+        viewModelScope.launch {
+            repository.insertMovie(movie)
+        }
+    }
     // --- Update Functions for btnToggleFavorite & btnToggleWatched ---
 
     fun toggleFavorite() {

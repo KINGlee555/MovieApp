@@ -30,16 +30,20 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
             val desc = binding.Desc.text.toString().trim()
 
             if (title.isNotEmpty() && desc.isNotEmpty()) {
+                val uniqueId = System.currentTimeMillis().toInt()
                 val newMovie = Movie(
+                    id = if (uniqueId < 0) -uniqueId else uniqueId,
                     title = title,
                     posterPath = null, // בהוספה ידנית אין לנו תמונה מה-API
                     overview = desc,
                     rating = 0.0,
                     isFavorite = binding.Favoritebtn.isChecked,
-                    isWatched = binding.Watchedbtn.isChecked
+                    isWatched = binding.Watchedbtn.isChecked,
+                    isManualEntry = true
                 )
 
                 viewModel.updateMovieStatus(newMovie)
+                viewModel.addMovie(newMovie)
                 Toast.makeText(requireContext(), "הסרט נשמר בהצלחה", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             } else {

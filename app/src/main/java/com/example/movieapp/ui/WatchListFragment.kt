@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
-import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentWatchListBinding
 import com.example.movieapp.ui.adapters.MovieAdapter
 import com.example.movieapp.ui.viewmodel.MovieViewModel
@@ -35,14 +34,14 @@ class WatchListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val watchListAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
-            override fun onMovieClick(movie: Movie) {
-                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
+            override fun onMovieClick(id: Int) {
+                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to id))
             }
         })
 
         val historyAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
-            override fun onMovieClick(movie: Movie) {
-                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
+            override fun onMovieClick(id: Int) {
+                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to id))
             }
         })
 
