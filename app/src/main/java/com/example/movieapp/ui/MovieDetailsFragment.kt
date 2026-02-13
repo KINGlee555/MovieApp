@@ -1,102 +1,94 @@
 package com.example.movieapp.ui
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.example.movieapp.R
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
-import com.example.movieapp.viewmodel.MovieViewModel
+import com.example.movieapp.ui.viewmodel.MovieViewModel
+import com.example.movieapp.utils.Loading
+import com.example.movieapp.utils.Success
+import com.example.movieapp.utils.Error
+import com.example.movieapp.utils.autoCleared
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
-    private val viewModel: MovieViewModel by activityViewModels()
+    // Using autoCleared as shown in SingleCharacterFragment
+    private var binding: FragmentMovieDetailsBinding by autoCleared()
 
-    private var _binding: FragmentMovieDetailsBinding? = null
-    private val binding get() = _binding!!
+    private val viewModel: MovieViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.chosenMovie.observe(viewLifecycleOwner) { movie ->
-            movie?.let { currentMovie ->
-                binding.movieTitleDetails.text = currentMovie.title
-                binding.movieDescDetails.text = currentMovie.description
-                binding.movieRatingDetails.rating = currentMovie.rating
-
-                // Handle Image Loading
-                Glide.with(requireContext())
-                    .load(currentMovie.imageUri)
-                    .placeholder(android.R.drawable.ic_menu_gallery)
-                    .into(binding.movieImageDetails)
-
-                //  for Public vs User Movies
-                if (currentMovie.isPublic) {
-                    // It's a public movie: show Add button, hide Edit/Delete
-                    binding.btnAddToMyCollection.visibility = View.VISIBLE
-                    binding.btnEditMovie.visibility = View.GONE
-                    binding.btnDeleteMovie.visibility = View.GONE
-
-                    binding.btnAddToMyCollection.setOnClickListener {
-                        // Create a copy with isPublic = false and reset ID for new entry
-                        val movieToSave = currentMovie.copy(isPublic = false).apply { id = 0 }
-                        viewModel.addMovie(movieToSave)
-                        Toast.makeText(requireContext(),
-                            getString(R.string.added_to_your_collection), Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
+        // Observing movie details status (Loading, Success, Error)
+        viewModel.movie.observe(viewLifecycleOwner) { resource ->
+            when(resource.status) {
+                is Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is Success -> {
+                    binding.progressBar.isVisible = false
+                    resource.status.data?.let { movie ->
+                        updateUI(movie)
                     }
-                } else {
-                    // It's a user movie: hide Add button, show Edit/Delete
-                    binding.btnAddToMyCollection.visibility = View.GONE
-                    binding.btnEditMovie.visibility = View.VISIBLE
-                    binding.btnDeleteMovie.visibility = View.VISIBLE
+                }
+                is Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(requireContext(), resource.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        binding.btnEditMovie.setOnClickListener {
-            findNavController().navigate(R.id.action_movieDetails_to_editMovie)
+        // Logic for Toggle Buttons
+        binding.btnToggleFavorite.setOnClickListener {
+            viewModel.toggleFavorite()
         }
 
-        binding.btnDeleteMovie.setOnClickListener {
-            showDeleteDialog()
+        binding.btnToggleWatched.setOnClickListener {
+            viewModel.toggleWatched()
+        }
+
+        // Get ID from arguments and notify ViewModel
+        arguments?.getInt("id")?.let { id ->
+            viewModel.setMovieId(id)
         }
     }
 
-    private fun showDeleteDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(getString(R.string.confirm_delete))
-        builder.setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_movie))
+    private fun updateUI(movie: Movie) {
+        binding.movieTitle.text = movie.title
+        binding.movieDesc.text = movie.overview // Assuming TMDB uses 'overview' or 'description'
 
-        builder.setPositiveButton(R.string.yes) { _, _ ->
-            viewModel.chosenMovie.value?.let { movie ->
-                viewModel.deleteMovie(movie)
-                Toast.makeText(requireContext(),
-                    getString(R.string.movie_deleted), Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack()
-            }
-        }
+        // Update button states based on local data
+        updateButtonsUI(movie.isFavorite, movie.isWatched)
 
-        builder.setNegativeButton(R.string.no, null)
-        builder.create().show()
+        Glide.with(requireContext())
+            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}") // TMDB path structure
+            .into(binding.movieImage)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun updateButtonsUI(isFavorite: Boolean, isWatched: Boolean) {
+        // Update Favorite Button text
+        binding.btnToggleFavorite.text = if (isFavorite) "Remove from Favorites" else "Add to Favorites"
+
+        // Update Watched Button text
+        binding.btnToggleWatched.text = if (isWatched) "Mark as Unwatched" else "Mark as Watched"
     }
 }

@@ -1,79 +1,39 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/movieImageResult"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:background="#EEE" />
-
-    <Button
-        android:id="@+id/btnSelectImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:text="@string/select_poster" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/movie_title_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMovieTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/description_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMovieDescription"
+        <EditText
+            android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="3" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="שם הסרט"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/rating_label"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/Desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="תקציר"
+            android:lines="3"/>
 
-    <RatingBar
-        android:id="@+id/ratingBarInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:numStars="5"
-        android:stepSize="1.0"
-        android:rating="0" />
-    <Button
-        android:id="@+id/btnSaveMovie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/save_movie" />
+        <CheckBox
+            android:id="@+id/Favoritebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הוסף למועדפים"/>
 
-</LinearLayout>
+        <CheckBox
+            android:id="@+id/Watchedbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="סימון כנצפה"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="שמור סרט"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
 </ScrollView>

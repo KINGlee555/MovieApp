@@ -1,62 +1,91 @@
-<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph" app:startDestination="@id/allMoviesFragment">
-    <fragment android:id="@+id/allMoviesFragment"
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/allMoviesFragment">
+
+    <fragment
+        android:id="@+id/allMoviesFragment"
         android:name="com.example.movieapp.ui.AllMoviesFragment"
-        android:label="My Movies"
+        android:label="Home"
         tools:layout="@layout/fragment_all_movies">
-
         <action
-            android:id="@+id/action_allMovies_to_addMovie"
-            app:destination="@id/addMovieFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-
+            android:id="@+id/action_allMovies_to_details"
+            app:destination="@id/movieDetailsFragment" />
         <action
-            android:id="@+id/action_allMovies_to_movieDetails"
-            app:destination="@id/movieDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-
+            android:id="@+id/action_allMovies_to_favorites"
+            app:destination="@id/favoritesFragment" />
         <action
-            android:id="@+id/action_allMovies_to_editMovie"
-            app:destination="@id/editMovieFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            android:id="@+id/action_allMovies_to_watchList"
+            app:destination="@id/watchListFragment" />
+        <action
+            android:id="@+id/action_allMovies_to_search"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_allMovies_to_cinema"
+            app:destination="@id/cinemaFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.movieapp.ui.MovieDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_movie_details">
+        <action
+            android:id="@+id/action_details_to_edit"
+            app:destination="@id/editMovieFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.movieapp.ui.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favorites_to_add"
+            app:destination="@id/addMovieFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/watchListFragment"
+        android:name="com.example.movieapp.ui.WatchListFragment"
+        android:label="Watch List"
+        tools:layout="@layout/fragment_watch_list" >
+        <action
+            android:id="@+id/action_watchListFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.movieapp.ui.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addMovieFragment"
         android:name="com.example.movieapp.ui.AddMovieFragment"
-        android:label="Add New Movie"
-        tools:layout="@layout/fragment_add_movie"/>
-
-    <fragment
-        android:id="@+id/movieDetailsFragment"
-        android:name="com.example.movieapp.ui.MovieDetailsFragment"
-        android:label="Movie Details"
-        tools:layout="@layout/fragment_movie_details">
-
-        <action
-            android:id="@+id/action_movieDetails_to_editMovie"
-            app:destination="@id/editMovieFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-
-    </fragment>
+        android:label="Add Movie"
+        tools:layout="@layout/fragment_add_movie" />
 
     <fragment
         android:id="@+id/editMovieFragment"
         android:name="com.example.movieapp.ui.EditMovieFragment"
         android:label="Edit Movie"
-        tools:layout="@layout/fragment_edit_movie">
-    </fragment>
+        tools:layout="@layout/fragment_edit_movie" />
+
+    <fragment
+        android:id="@+id/cinemaFragment"
+        android:name="com.example.movieapp.ui.CinemaFragment"
+        android:label="Cinema"
+        tools:layout="@layout/fragment_cinema" />
 
 </navigation>

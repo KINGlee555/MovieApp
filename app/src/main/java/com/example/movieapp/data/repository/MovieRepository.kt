@@ -1,0 +1,59 @@
+package com.example.movieapp.repository
+
+import com.example.movieapp.data.local_db.MovieDao
+import com.example.movieapp.data.models.Movie
+import com.example.movieapp.data.remote_db.MovieService
+import com.example.movieapp.utils.Constants
+import com.example.movieapp.utils.Resource
+import com.example.movieapp.utils.performFetchingAndSaving
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class MovieRepository @Inject constructor(
+    private val movieService: MovieService,
+    private val movieDao: MovieDao
+) {
+
+    // שימוש בפונקציית המרצה למשיכה ושמירה אוטומטית
+    fun getPopularMovies() = performFetchingAndSaving(
+        localDbFetch = { movieDao.getAllMovies() },
+        remoteDbFetch = {
+            val response = movieService.getPopularMovies(Constants.API_KEY)
+            if (response.isSuccessful && response.body() != null) {
+                Resource.success(response.body()!!.results)
+            } else {
+                Resource.error("Failed to fetch movies")
+            }
+        },
+        localDbSave = { movies -> movieDao.insertMovies(movies) }
+    )
+
+    // שאר הפונקציות נשארות רגילות כי הן לא דורשות Fetching & Saving מורכב
+    fun getFavoriteMovies() = movieDao.getFavoriteMovies()
+    fun getWatchedMovies() = movieDao.getWatchedMovies()
+
+    fun getMovie(id: Int) = performFetchingAndSaving(
+        localDbFetch = { movieDao.getMovie(id) },
+        remoteDbFetch = {
+            val response = movieService.getMovieDetails(id, Constants.API_KEY)
+            if (response.isSuccessful && response.body() != null) {
+                Resource.success(response.body()!!)
+            }
+            else {
+                Resource.error("Failed to fetch movie details")
+            }
+        },
+        localDbSave = { remoteMovie -> movieDao.insertMovie(remoteMovie) }
+    )
+
+    suspend fun updateMovie(movie: Movie) = withContext(Dispatchers.IO) {
+        movieDao.updateMovie(movie)
+    }
+
+    suspend fun searchMovies(query: String) = withContext(Dispatchers.IO) {
+        movieService.searchMovies(Constants.API_KEY, query)
+    }
+}

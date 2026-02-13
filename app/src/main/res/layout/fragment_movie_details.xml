@@ -1,77 +1,83 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
 
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/movieImageDetails"
+            android:id="@+id/movieImage"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:layout_height="350dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/movieTitleDetails"
-            android:layout_width="wrap_content"
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:layout_marginTop="16dp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintTop_toBottomOf="@id/movieImage" />
 
         <RatingBar
-            android:id="@+id/movieRatingDetails"
-            style="?android:attr/ratingBarStyle"
+            android:id="@+id/movieRating"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
             android:isIndicator="true"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toBottomOf="@id/movieTitle"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/movieDescDetails"
-            android:layout_width="wrap_content"
+            android:id="@+id/movieDesc"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintTop_toBottomOf="@id/movieRating" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            app:layout_constraintTop_toBottomOf="@id/movieDesc">
 
-            <Button
-                android:id="@+id/btnEditMovie"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleFavorite"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/edit" />
+                android:text="אהבתי"
+                app:icon="@android:drawable/btn_star_big_off" />
 
-            <Button
-                android:id="@+id/btnDeleteMovie"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleWatched"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="@string/delete"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:textColor="@android:color/holo_red_dark"/>
-
-            <Button
-                android:id="@+id/btnAddToMyCollection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/add_to_my_collection"
-                android:backgroundTint="#6200EE"
-                android:textColor="@color/white"
-                android:visibility="gone" />
+                android:text="צפיתי"
+                app:icon="@android:drawable/checkbox_off_background" />
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

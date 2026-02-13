@@ -5,125 +5,68 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAllMoviesBinding
-import com.example.movieapp.viewmodel.MovieViewModel
+import com.example.movieapp.ui.adapters.MovieAdapter
+import com.example.movieapp.ui.viewmodel.MovieViewModel
+import com.example.movieapp.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 
-class AllMoviesFragment : Fragment() {
+@AndroidEntryPoint
+class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
+    private var binding: FragmentAllMoviesBinding by autoCleared()
+    private val viewModel: MovieViewModel by viewModels()
+    private  lateinit var adapter: MovieAdapter
 
-    private val viewModel: MovieViewModel by activityViewModels()
-
-    private var _binding: FragmentAllMoviesBinding? = null
-    private val binding get() = _binding!!
-
-    // two adapters: one for public movies and one for user movies
-    private lateinit var userAdapter: MovieAdapter
-    private lateinit var publicAdapter: MovieAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
+        binding = FragmentAllMoviesBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = MovieAdapter(this)
+        binding.AllMovies.layoutManager = LinearLayoutManager(requireContext())
+        binding.AllMovies.adapter = adapter
 
-        setupRecyclerViews()
-
-        // Observe public movies (Recommended section)
-        viewModel.publicMovies?.observe(viewLifecycleOwner) { movieList ->
-            publicAdapter.setMovies(movieList)
-        }
-
-        // Observe user movies (My Movies section)
-        viewModel.userMovies?.observe(viewLifecycleOwner) { movieList ->
-            userAdapter.setMovies(movieList)
-        }
-
-        // Navigate to Add Movie screen
-        binding.addFab.setOnClickListener {
-            findNavController().navigate(R.id.action_allMovies_to_addMovie)
-        }
-    }
-
-    private fun setupRecyclerViews() {
-        // Shared listener logic
-        val movieListener = object : MovieAdapter.MovieListener {
-            override fun onMovieClicked(movie: Movie) {
-                viewModel.setMovie(movie)
-                findNavController().navigate(R.id.action_allMovies_to_movieDetails)
-            }
-
-            override fun onMovieLongClicked(movie: Movie) {
-                // We only allow editing/long click for user movies (isPublic = false)
-                if (!movie.isPublic) {
-                    viewModel.setMovie(movie)
-                    findNavController().navigate(R.id.action_allMovies_to_editMovie)
+        // טיפול ב-Resource (מצבי הצלחה/טעינה/שגיאה)
+        viewModel.allMovies.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                is Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    adapter.submitList(resource.status.data)
+                }
+                is Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), resource.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        // Setup Public Movies (Horizontal)
-        publicAdapter = MovieAdapter(emptyList(), movieListener)
-        binding.publicMovies.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = publicAdapter
-        }
-
-        // Setup User Movies (Vertical)
-        userAdapter = MovieAdapter(emptyList(), movieListener)
-        binding.userMovies.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = userAdapter
-        }
-
-        // Swipe to Delete - Only for user movies
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean = false
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val movieToDelete = userAdapter.getMovieAt(position)
-                    AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.confirm_delete)
-                        .setMessage(R.string.are_you_sure_you_want_to_delete_this_movie)
-                        .setCancelable(false) // Prevents closing by clicking outside
-                        .setPositiveButton(R.string.yes) { _, _ ->
-                            // User confirmed: Delete from ViewModel/DB
-                            viewModel.deleteMovie(movieToDelete)
-                            Toast.makeText(requireContext(), R.string.movie_deleted, Toast.LENGTH_SHORT).show()
-                        }
-                        .setNegativeButton(R.string.no) { dialog, _ ->
-                            // User cancelled: Restore the item in the UI
-                            userAdapter.notifyItemChanged(position)
-                            dialog.dismiss()
-                        }
-                        .show()
-                }
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.userMovies)
+        setupNavigation()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onMovieClick(movie: Movie) {
+        findNavController().navigate(R.id.action_allMovies_to_details, bundleOf("movieArgument" to movie))
+    }
+    private fun setupNavigation() {
+        binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_favorites) }
+        binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_watchList) }
+        binding.btnNavCinema.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_cinema) }
+        binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_search) }
     }
 }
