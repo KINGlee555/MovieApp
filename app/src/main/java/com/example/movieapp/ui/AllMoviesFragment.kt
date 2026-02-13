@@ -61,12 +61,12 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
     }
 
     override fun onMovieClick(movie: Movie) {
-        findNavController().navigate(R.id.action_allMovies_to_details, bundleOf("id" to movie.id))
+        findNavController().navigate(R.id.action_allMoviesFragment_to_movieDetailsFragment, bundleOf("id" to movie.id))
     }
     private fun setupNavigation() {
-        binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_favorites) }
-        binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_watchList) }
-        binding.btnNavCinema.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_cinema) }
-        binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMovies_to_search) }
+        binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_favoritesFragment) }
+        binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_watchListFragment) }
+        binding.btnNavCinema.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_cinemaFragment) }
+        binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_searchFragment) }
     }
 }

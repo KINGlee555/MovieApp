@@ -50,7 +50,7 @@ class FavoritesFragment : Fragment() {
         }
 
         binding.fabAddMovie.setOnClickListener {
-            findNavController().navigate(R.id.action_favorites_to_add)
+            findNavController().navigate(R.id.action_favoritesFragment_to_addMovieFragment)
         }
     }
 }

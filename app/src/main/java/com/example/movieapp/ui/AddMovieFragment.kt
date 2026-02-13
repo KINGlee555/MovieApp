@@ -31,7 +31,6 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
 
             if (title.isNotEmpty() && desc.isNotEmpty()) {
                 val newMovie = Movie(
-                    id = (System.currentTimeMillis() % 10000).toInt(), // יצירת ID זמני
                     title = title,
                     posterPath = null, // בהוספה ידנית אין לנו תמונה מה-API
                     overview = desc,

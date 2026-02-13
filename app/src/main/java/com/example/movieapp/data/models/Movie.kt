@@ -10,8 +10,8 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "movies")
 @Parcelize
 data class Movie(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val title: String,
     @SerializedName("poster_path")
     val posterPath: String?,

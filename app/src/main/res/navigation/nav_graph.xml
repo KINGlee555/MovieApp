@@ -11,20 +11,20 @@
         android:label="Home"
         tools:layout="@layout/fragment_all_movies">
         <action
-            android:id="@+id/action_allMovies_to_details"
+            android:id="@+id/action_allMoviesFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
         <action
-            android:id="@+id/action_allMovies_to_favorites"
+            android:id="@+id/action_allMoviesFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
         <action
-            android:id="@+id/action_allMovies_to_watchList"
+            android:id="@+id/action_allMoviesFragment_to_watchListFragment"
             app:destination="@id/watchListFragment" />
         <action
-            android:id="@+id/action_allMovies_to_search"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_allMovies_to_cinema"
+            android:id="@+id/action_allMoviesFragment_to_cinemaFragment"
             app:destination="@id/cinemaFragment" />
+        <action
+            android:id="@+id/action_allMoviesFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -32,9 +32,6 @@
         android:name="com.example.movieapp.ui.MovieDetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_movie_details">
-        <action
-            android:id="@+id/action_details_to_edit"
-            app:destination="@id/editMovieFragment" />
         <argument
             android:name="id"
             app:argType="integer" />
@@ -46,11 +43,11 @@
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites">
         <action
-            android:id="@+id/action_favorites_to_add"
-            app:destination="@id/addMovieFragment" />
-        <action
             android:id="@+id/action_favoritesFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_addMovieFragment"
+            app:destination="@id/addMovieFragment" />
     </fragment>
 
     <fragment
