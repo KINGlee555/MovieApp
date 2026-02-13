@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
-import com.example.movieapp.data.Movie
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAddMovieBinding
 import com.example.movieapp.viewmodel.MovieViewModel
 

@@ -2,7 +2,7 @@ package com.example.movieapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.movieapp.data.Movie
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

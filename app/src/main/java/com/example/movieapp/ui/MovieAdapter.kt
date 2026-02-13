@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.movieapp.data.Movie
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.MovieLayoutBinding
 
 class MovieAdapter(

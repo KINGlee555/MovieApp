@@ -2,9 +2,9 @@ package com.example.movieapp.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.movieapp.data.Movie
-import com.example.movieapp.data.MovieDao
-import com.example.movieapp.data.MovieDatabase
+import com.example.movieapp.data.models.Movie
+import com.example.movieapp.data.local_db.MovieDao
+import com.example.movieapp.data.local_db.MovieDatabase
 
 
 class MovieRepository(application: Application) {

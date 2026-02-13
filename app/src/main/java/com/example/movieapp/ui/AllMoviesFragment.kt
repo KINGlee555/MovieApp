@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
-import com.example.movieapp.data.Movie
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAllMoviesBinding
 import com.example.movieapp.viewmodel.MovieViewModel
 
