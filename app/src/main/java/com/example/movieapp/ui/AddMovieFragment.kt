@@ -30,7 +30,7 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
                 selectedImageUri = uri.toString()
-                Glide.with(this).load(uri).into(binding.imgPosterPreview)
+                Glide.with(this).load(uri).fitCenter().into(binding.imgPosterPreview)
             }
         }
 

@@ -26,7 +26,8 @@
             android:id="@+id/movieImage"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

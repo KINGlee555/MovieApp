@@ -88,7 +88,8 @@ class MovieDetailsFragment : Fragment() {
         Glide.with(requireContext())
             .load(movie.getFullPosterPath())
             .placeholder(android.R.drawable.ic_menu_gallery) // תמונת ברירת מחדל בזמן טעינה
-            .error(android.R.drawable.stat_notify_error)    // תמונה במקרה של שגיאה
+            .error(android.R.drawable.stat_notify_error)
+            .fitCenter()
             .into(binding.movieImage)
     }
 

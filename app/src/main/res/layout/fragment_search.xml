@@ -20,7 +20,9 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="חפש סרט ב-TMDB..."/>
+        android:queryHint="Search for movies..."
+        app:iconifiedByDefault="false"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SearchResults"

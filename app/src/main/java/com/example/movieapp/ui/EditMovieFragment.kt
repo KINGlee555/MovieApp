@@ -58,6 +58,7 @@ class EditMovieFragment : Fragment() {
             Glide.with(this)
                 .load(currentMovie.getFullPosterPath())
                 .placeholder(android.R.drawable.ic_menu_gallery)
+                .fitCenter()
                 .into(binding.imgPosterPreview)
             binding.imgPosterPreview.setOnClickListener {
                 pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
