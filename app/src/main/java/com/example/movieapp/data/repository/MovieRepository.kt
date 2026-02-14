@@ -28,7 +28,27 @@ class MovieRepository @Inject constructor(
                 Resource.error("Failed to fetch movies")
             }
         },
-        localDbSave = { movies -> movieDao.insertMovies(movies) }
+        localDbSave = { remoteMovies ->
+            remoteMovies.forEach { remoteMovie ->
+            val localMovie=movieDao.getMovieSync(remoteMovie.id)
+            if (localMovie != null) {
+                val flagMovie = remoteMovie.copy(
+                    isFavorite = localMovie.isFavorite,
+                    isWatched = localMovie.isWatched,
+                    isInWatchList = localMovie.isInWatchList,
+                    isManualEntry = localMovie.isManualEntry,
+                    rating = if (localMovie.isManualEntry){
+                        localMovie.rating
+                    }
+                    else{
+                        remoteMovie.rating
+                    }
+                )
+                movieDao.updateMovie(flagMovie)
+            } else {
+                movieDao.insertMovie(remoteMovie)
+            }
+        }}
     )
 
     // שאר הפונקציות נשארות רגילות כי הן לא דורשות Fetching & Saving מורכב

@@ -20,6 +20,7 @@ import com.example.movieapp.ui.adapters.MovieAdapter
 import com.example.movieapp.ui.viewmodel.MovieViewModel
 import com.example.movieapp.utils.autoCleared
 import com.example.movieapp.utils.Resource
+import com.example.movieapp.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -122,13 +123,13 @@ class WatchListFragment : Fragment() {
         }).attachToRecyclerView(binding.History)
 
         viewModel.allMovies.observe(viewLifecycleOwner) { resource ->
-            resource.status.let { status ->
-            val movies = status.data
-            if (movies != null){
-                val watchList=movies.filter { it.isInWatchList && !it.isWatched }
-                watchListAdapter.submitList(watchList)
+            if (resource.status is Success) {
+                resource.status.data.let { movies ->
+                        val watchList = movies?.filter { it.isInWatchList && !it.isWatched }
+                        watchListAdapter.submitList(watchList)
+
+                }
             }
-          }
         }
 
         viewModel.watchedMovies.observe(viewLifecycleOwner) { movies ->
