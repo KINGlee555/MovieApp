@@ -25,6 +25,17 @@
         app:layout_constraintStart_toEndOf="@id/imgPosterPreview"
         android:layout_marginStart="16dp"/>
 
+    <RatingBar
+        android:id="@+id/movieRating"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="10"
+        android:stepSize="0.1"
+        android:isIndicator="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"

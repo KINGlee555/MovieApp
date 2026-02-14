@@ -53,7 +53,7 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                     title = title,
                     posterPath = selectedImageUri, // בהוספה ידנית אין לנו תמונה מה-API
                     overview = desc,
-                    rating = 0.0,
+                    rating = binding.movieRating.rating.toDouble(),
                     isFavorite = binding.Favoritebtn.isChecked,
                     isWatched = binding.Watchedbtn.isChecked,
                     isInWatchList = binding.WatchListbtn.isChecked, // שמירת הסטטוס החדש

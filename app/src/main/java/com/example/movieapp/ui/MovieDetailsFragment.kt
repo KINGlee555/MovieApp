@@ -80,6 +80,7 @@ class MovieDetailsFragment : Fragment() {
     private fun updateUI(movie: Movie) {
         binding.movieTitle.text = movie.title
         binding.movieDesc.text = movie.overview // Assuming TMDB uses 'overview' or 'description'
+        binding.movieRating.rating = movie.rating.toFloat()
 
         // Update button states based on local data
         updateButtonsUI(movie.isFavorite, movie.isWatched,movie.isInWatchList)

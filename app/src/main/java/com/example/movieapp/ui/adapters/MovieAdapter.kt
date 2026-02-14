@@ -33,7 +33,7 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
         fun bind(movie: Movie) {
             binding.movieTitle.text = movie.title
             binding.movieDescription.text = movie.overview
-            binding.movieRating.rating = movie.rating.toFloat() / 2 // המרה לדירוג של 5 כוכבים
+            binding.movieRating.rating = movie.rating.toFloat()
 
             // שימוש ב-Glide לטעינת התמונה מ-TMDB
             Glide.with(binding.root.context)
