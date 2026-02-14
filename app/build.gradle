@@ -69,6 +69,8 @@ dependencies {
     ksp libs.hilt.compiler
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation libs.play.services.maps
+    implementation libs.play.services.location
 
 
 
