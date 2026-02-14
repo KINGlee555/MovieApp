@@ -26,7 +26,6 @@ class FavoritesFragment : Fragment() {
 
     private var binding: FragmentFavoritesBinding by autoCleared()
     private val viewModel: MovieViewModel by viewModels()
-    private  lateinit var adapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +69,7 @@ class FavoritesFragment : Fragment() {
                 target: RecyclerView.ViewHolder ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val movie = adapter.currentList[viewHolder.getBindingAdapterPosition()]
+                val movie = favoriteAdapter.currentList[viewHolder.getBindingAdapterPosition()]
                 val updatedMovie = movie.copy(isFavorite = false)
                 viewModel.updateMovieStatus(updatedMovie)
                 Toast.makeText(requireContext(), "הוסר מהמועדפים", Toast.LENGTH_SHORT).show()
