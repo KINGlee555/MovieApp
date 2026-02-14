@@ -71,13 +71,26 @@ class SearchFragment : Fragment() {
 
         viewModel.searchResults.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                is Loading -> binding.progressBar.isVisible = true
+                is Loading -> {
+                    binding.progressBar.isVisible = true
+                    binding.NoResults.isVisible = false
+                }
                 is Success -> {
                     binding.progressBar.isVisible = false
-                    searchAdapter.submitList(resource.status.data)
+                    val movies = resource.status.data ?: emptyList()
+                    if (movies.isEmpty()) {
+                        // No results found: show empty state, hide list
+                        binding.NoResults.isVisible = true
+                        binding.SearchResults.isVisible = false}
+                    else{
+                        binding.NoResults.isVisible = false
+                        binding.SearchResults.isVisible = true
+                        searchAdapter.submitList(movies)
+                    }
                 }
                 is Error -> {
                     binding.progressBar.isVisible = false
+                    binding.NoResults.isVisible = false
                     Toast.makeText(requireContext(), resource.status.message, Toast.LENGTH_SHORT).show()
                 }
             }
