@@ -1,8 +1,28 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical" android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgPosterPreview"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/Desc"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="לחץ לבחירת תמונה"
+            app:layout_constraintTop_toTopOf="@id/imgPosterPreview"
+            app:layout_constraintBottom_toBottomOf="@id/imgPosterPreview"
+            app:layout_constraintStart_toEndOf="@id/imgPosterPreview"
+            android:layout_marginStart="16dp"/>
 
         <EditText
             android:id="@+id/Title"

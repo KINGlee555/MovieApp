@@ -63,6 +63,16 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
     override fun onMovieClick(id: Int) {
         findNavController().navigate(R.id.action_allMoviesFragment_to_movieDetailsFragment, bundleOf("id" to id))
     }
+    override fun onMovieLongClick(movie: Movie) {
+        if (movie.isManualEntry) {
+            val bundle = Bundle().apply {
+                putParcelable("movie", movie)
+            }
+            findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
+        } else {
+            Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun setupNavigation() {
         binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_favoritesFragment) }
         binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_watchListFragment) }

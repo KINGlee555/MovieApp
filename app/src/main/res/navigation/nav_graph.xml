@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_allMoviesFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_allMoviesFragment_to_editMovieFragment"
+            app:destination="@id/editMovieFragment" />
     </fragment>
 
     <fragment
@@ -49,6 +52,9 @@
         <action
             android:id="@+id/action_favoritesFragment_to_addMovieFragment"
             app:destination="@id/addMovieFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_editMovieFragment"
+            app:destination="@id/editMovieFragment" />
     </fragment>
 
     <fragment
@@ -69,13 +75,20 @@
         <action
             android:id="@+id/action_searchFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_editMovieFragment"
+            app:destination="@id/editMovieFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addMovieFragment"
         android:name="com.example.movieapp.ui.AddMovieFragment"
         android:label="Add Movie"
-        tools:layout="@layout/fragment_add_movie" />
+        tools:layout="@layout/fragment_add_movie" >
+        <action
+            android:id="@+id/action_addMovieFragment_to_editMovieFragment"
+            app:destination="@id/editMovieFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/editMovieFragment"

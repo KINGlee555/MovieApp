@@ -15,6 +15,7 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
 
     interface OnMovieClickListener {
         fun onMovieClick(id: Int)
+        fun onMovieLongClick(movie: Movie) // הוספת פונקציה ללחיצה ארוכה המקבלת את כל האובייקט
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -42,6 +43,10 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
 
             binding.root.setOnClickListener {
                 listener.onMovieClick(id = movie.id)
+            }
+            binding.root.setOnLongClickListener {
+                listener.onMovieLongClick(movie)
+                true // החזרת true כדי לציין שהאירוע טופל
             }
         }
     }

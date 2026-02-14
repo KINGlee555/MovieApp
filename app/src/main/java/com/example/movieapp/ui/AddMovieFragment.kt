@@ -3,9 +3,12 @@ package com.example.movieapp.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAddMovieBinding
@@ -20,10 +23,22 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
     private val viewModel: MovieViewModel by activityViewModels()
     private var binding: FragmentAddMovieBinding by autoCleared()
 
+    private var selectedImageUri: String? = null
 
+    // 2. הגדרת ה-Launcher
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
+            selectedImageUri = uri.toString()
+            Glide.with(this).load(uri).into(binding.imgPosterPreview)
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddMovieBinding.bind(view)
+
+        binding.imgPosterPreview.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
 
         binding.btnSave.setOnClickListener {
             val title = binding.Title.text.toString().trim()
@@ -34,7 +49,7 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                 val newMovie = Movie(
                     id = if (uniqueId < 0) -uniqueId else uniqueId,
                     title = title,
-                    posterPath = null, // בהוספה ידנית אין לנו תמונה מה-API
+                    posterPath = selectedImageUri, // בהוספה ידנית אין לנו תמונה מה-API
                     overview = desc,
                     rating = 0.0,
                     isFavorite = binding.Favoritebtn.isChecked,
@@ -42,7 +57,6 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                     isManualEntry = true
                 )
 
-                viewModel.updateMovieStatus(newMovie)
                 viewModel.addMovie(newMovie)
                 Toast.makeText(requireContext(), "הסרט נשמר בהצלחה", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()

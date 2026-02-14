@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
+import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.ui.adapters.MovieAdapter
 import com.example.movieapp.ui.viewmodel.MovieViewModel
@@ -39,6 +40,19 @@ class SearchFragment : Fragment() {
         val searchAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(id: Int ) {
                 findNavController().navigate(R.id.action_searchFragment_to_movieDetailsFragment, bundleOf("id" to id))
+            }
+            override fun onMovieLongClick(movie: Movie) {
+                if (movie.isManualEntry) {
+                    // יצירת Bundle עם האובייקט (הסרט כבר Parcelable)
+                    val bundle = Bundle().apply {
+                        putParcelable("movie", movie)
+                    }
+                    // ניווט למסך העריכה עם הנתונים
+                    findNavController().navigate(R.id.action_searchFragment_to_editMovieFragment, bundle)
+                } else {
+                    // אופציונלי: להציג הודעה שלא ניתן לערוך סרטים מה-API
+                    Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,6 +38,20 @@ class FavoritesFragment : Fragment() {
         val favoriteAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(id: Int) {
                 findNavController().navigate(R.id.action_favoritesFragment_to_movieDetailsFragment, bundleOf("id" to id))
+            }
+
+            override fun onMovieLongClick(movie: Movie) {
+                if (movie.isManualEntry) {
+                    // יצירת Bundle עם האובייקט (הסרט כבר Parcelable)
+                    val bundle = Bundle().apply {
+                        putParcelable("movie", movie)
+                    }
+                    // ניווט למסך העריכה עם הנתונים
+                    findNavController().navigate(R.id.action_favoritesFragment_to_editMovieFragment, bundle)
+                } else {
+                    // אופציונלי: להציג הודעה שלא ניתן לערוך סרטים מה-API
+                    Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 

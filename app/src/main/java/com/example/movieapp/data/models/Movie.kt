@@ -25,5 +25,10 @@ data class Movie(
     var isWatched: Boolean = false,
     var isManualEntry : Boolean = false
 ) : Parcelable {
-    fun getFullPosterPath() = IMAGE_BASE_URL + posterPath
-}
+    fun getFullPosterPath(): String? {
+        if (posterPath.isNullOrBlank()) return null
+        if (posterPath.startsWith("content://") || posterPath.startsWith("http")) {
+            return posterPath
+        }
+        return IMAGE_BASE_URL + posterPath
+    }}
