@@ -69,8 +69,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="אהבתי"
+                android:text="Add to Favorites"
+                android:textSize= "10dp"
                 app:icon="@android:drawable/btn_star_big_off" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleWatchList"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Add to Watch List"
+                android:textSize= "10dp"
+                app:icon="@android:drawable/checkbox_off_background" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnToggleWatched"
@@ -79,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="צפיתי"
+                android:text="Mark as Watched"
+                android:textSize= "12dp"
                 app:icon="@android:drawable/checkbox_off_background" />
         </LinearLayout>
 

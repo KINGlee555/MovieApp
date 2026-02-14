@@ -63,18 +63,25 @@ class EditMovieFragment : Fragment() {
             binding.btnUpdateMovie.setOnClickListener {
                 val title = binding.EditMovieTitle.text.toString().trim()
                 val overview = binding.EditMovieDescription.text.toString().trim()
+                val isInWatchList = binding.EditWatchListbtn.isChecked
 
-                if (title.isNotEmpty()) {
+                if (title.isNotEmpty() && overview.isNotEmpty() && selectedImageUri != null) {
                     val updatedMovie = currentMovie.copy(
                         title = title,
                         overview = overview,
-                        posterPath = selectedImageUri // שימוש בכתובת השמורה (URI) ולא ב-View
+                        posterPath = selectedImageUri,
+                        isInWatchList = isInWatchList
                     )
                 viewModel.updateMovieStatus(updatedMovie)
                 Toast.makeText(requireContext(), "Movie Updated", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
+                else if (title.isEmpty() || overview.isEmpty()) {
+                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                } else if (selectedImageUri == null) {
+                    Toast.makeText(requireContext(), "Please select a poster", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-    }
     }
 }

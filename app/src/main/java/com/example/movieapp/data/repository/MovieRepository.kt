@@ -50,7 +50,26 @@ class MovieRepository @Inject constructor(
                 }
             }
         },
-        localDbSave = { remoteMovie -> movieDao.insertMovie(remoteMovie) }
+        localDbSave = { remoteMovie ->
+            val localMovie=movieDao.getMovieSync(remoteMovie.id)
+        if (localMovie != null) {
+            val flagMovie = remoteMovie.copy(
+                isFavorite = localMovie.isFavorite,
+                isWatched = localMovie.isWatched,
+                isInWatchList = localMovie.isInWatchList,
+                isManualEntry = localMovie.isManualEntry,
+                rating = if (localMovie.isManualEntry){
+                    localMovie.rating
+                }
+                else{
+                    remoteMovie.rating
+                }
+            )
+            movieDao.updateMovie(flagMovie)
+        } else {
+            movieDao.insertMovie(remoteMovie)
+        }
+        }
     )
 
     suspend fun updateMovie(movie: Movie) = withContext(Dispatchers.IO) {
@@ -62,4 +81,7 @@ class MovieRepository @Inject constructor(
     suspend fun searchMovies(query: String) = withContext(Dispatchers.IO) {
         movieService.searchMovies(Constants.API_KEY, query)
     }
+    suspend fun deleteMovie(movie: Movie) = withContext(Dispatchers.IO) {
+        movieDao.deleteMovie(movie)
+        }
 }

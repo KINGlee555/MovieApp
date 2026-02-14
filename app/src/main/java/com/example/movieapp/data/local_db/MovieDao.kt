@@ -28,7 +28,8 @@ interface MovieDao {
     suspend fun updateMovie(movie: Movie)
     @Query("SELECT * FROM movies WHERE id = :id")
     suspend fun getMovieSync(id: Int): Movie?
-
+    @Delete
+    suspend fun deleteMovie(movie: Movie)
     @Query("DELETE FROM movies WHERE isFavorite = 0 AND isWatched = 0")
     suspend fun clearCachedMovies()
 }

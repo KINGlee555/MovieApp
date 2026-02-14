@@ -26,12 +26,14 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
     private var selectedImageUri: String? = null
 
     // 2. הגדרת ה-Launcher
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            selectedImageUri = uri.toString()
-            Glide.with(this).load(uri).into(binding.imgPosterPreview)
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                selectedImageUri = uri.toString()
+                Glide.with(this).load(uri).into(binding.imgPosterPreview)
+            }
         }
-    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddMovieBinding.bind(view)
@@ -44,7 +46,7 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
             val title = binding.Title.text.toString().trim()
             val desc = binding.Desc.text.toString().trim()
 
-            if (title.isNotEmpty() && desc.isNotEmpty()) {
+            if (title.isNotEmpty() && desc.isNotEmpty() && selectedImageUri != null) {
                 val uniqueId = System.currentTimeMillis().toInt()
                 val newMovie = Movie(
                     id = if (uniqueId < 0) -uniqueId else uniqueId,
@@ -54,16 +56,19 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                     rating = 0.0,
                     isFavorite = binding.Favoritebtn.isChecked,
                     isWatched = binding.Watchedbtn.isChecked,
+                    isInWatchList = binding.WatchListbtn.isChecked, // שמירת הסטטוס החדש
                     isManualEntry = true
                 )
 
                 viewModel.addMovie(newMovie)
                 Toast.makeText(requireContext(), "הסרט נשמר בהצלחה", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
-            } else {
+            } else if (title.isEmpty() || desc.isEmpty()) {
                 Toast.makeText(requireContext(), "נא למלא את כל השדות", Toast.LENGTH_SHORT).show()
+            } else if (selectedImageUri == null) {
+                Toast.makeText(requireContext(), "Please select a poster", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
-
 }

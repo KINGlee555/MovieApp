@@ -9,7 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeFlag
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentFavoritesBinding
@@ -23,11 +26,12 @@ class FavoritesFragment : Fragment() {
 
     private var binding: FragmentFavoritesBinding by autoCleared()
     private val viewModel: MovieViewModel by viewModels()
+    private  lateinit var adapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,6 +58,25 @@ class FavoritesFragment : Fragment() {
                 }
             }
         })
+
+        ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val movie = adapter.currentList[viewHolder.getBindingAdapterPosition()]
+                val updatedMovie = movie.copy(isFavorite = false)
+                viewModel.updateMovieStatus(updatedMovie)
+                Toast.makeText(requireContext(), "הוסר מהמועדפים", Toast.LENGTH_SHORT).show()
+
+            }
+        }).attachToRecyclerView(binding.Favorites)
 
         binding.Favorites.apply {
             layoutManager = LinearLayoutManager(requireContext())

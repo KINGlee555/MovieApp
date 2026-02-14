@@ -44,6 +44,12 @@
             android:text="הוסף למועדפים"/>
 
         <CheckBox
+            android:id="@+id/WatchListbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הוספה לרשימת צפייה" />
+
+        <CheckBox
             android:id="@+id/Watchedbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

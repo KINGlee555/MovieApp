@@ -66,6 +66,10 @@ class MovieDetailsFragment : Fragment() {
         binding.btnToggleWatched.setOnClickListener {
             viewModel.toggleWatched()
         }
+        binding.btnToggleWatchList.setOnClickListener {
+            viewModel.toggleWatchList()
+        }
+
 
         // Get ID from arguments and notify ViewModel
         arguments?.getInt("id")?.let { id ->
@@ -78,7 +82,7 @@ class MovieDetailsFragment : Fragment() {
         binding.movieDesc.text = movie.overview // Assuming TMDB uses 'overview' or 'description'
 
         // Update button states based on local data
-        updateButtonsUI(movie.isFavorite, movie.isWatched)
+        updateButtonsUI(movie.isFavorite, movie.isWatched,movie.isInWatchList)
 
         Glide.with(requireContext())
             .load(movie.getFullPosterPath())
@@ -87,11 +91,12 @@ class MovieDetailsFragment : Fragment() {
             .into(binding.movieImage)
     }
 
-    private fun updateButtonsUI(isFavorite: Boolean, isWatched: Boolean) {
+    private fun updateButtonsUI(isFavorite: Boolean, isWatched: Boolean, isInWatchList: Boolean) {
         // Update Favorite Button text
         binding.btnToggleFavorite.text = if (isFavorite) "Remove from Favorites" else "Add to Favorites"
-
         // Update Watched Button text
         binding.btnToggleWatched.text = if (isWatched) "Mark as Unwatched" else "Mark as Watched"
+        binding.btnToggleWatchList.text = if (isInWatchList) "Remove from Watch List" else "Add to Watch List"
+
     }
 }

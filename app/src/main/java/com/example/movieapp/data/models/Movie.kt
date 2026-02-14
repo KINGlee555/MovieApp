@@ -23,7 +23,8 @@ data class Movie(
     val rating: Double,
     var isFavorite: Boolean = false,
     var isWatched: Boolean = false,
-    var isManualEntry : Boolean = false
+    var isManualEntry : Boolean = false,
+    val isInWatchList: Boolean = false, // השדה החדש שלנו!
 ) : Parcelable {
     fun getFullPosterPath(): String? {
         if (posterPath.isNullOrBlank()) return null

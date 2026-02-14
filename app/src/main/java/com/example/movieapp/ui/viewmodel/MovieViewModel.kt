@@ -75,10 +75,24 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
-
+    fun toggleWatchList() {
+        movie.value?.let { resource ->
+            if (resource.status is Success) {
+                resource.status.data?.let { currentMovie ->
+                    val updatedMovie = currentMovie.copy(isInWatchList = !currentMovie.isInWatchList)
+                    updateMovieStatus(updatedMovie)
+                }
+            }
+        }
+            }
     fun updateMovieStatus(movie: Movie) {
         viewModelScope.launch {
             repository.updateMovie(movie)
         }
+    }
+    fun deleteMovie(movie: Movie) {
+        viewModelScope.launch {
+            repository.deleteMovie(movie)
+            }
     }
 }

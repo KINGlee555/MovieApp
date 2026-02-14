@@ -50,6 +50,12 @@
             android:gravity="top" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/EditWatchListbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Watch List" />
+
     <Button
         android:id="@+id/btnUpdateMovie"
         android:layout_width="match_parent"

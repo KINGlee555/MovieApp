@@ -9,7 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeFlag
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentWatchListBinding
@@ -79,9 +82,46 @@ class WatchListFragment : Fragment() {
         binding.History.layoutManager = LinearLayoutManager(requireContext())
         binding.History.adapter = historyAdapter
 
+        ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val movie =watchListAdapter.currentList[viewHolder.getBindingAdapterPosition()]
+                val updatedMovie = movie.copy(isInWatchList = false, isWatched = false)
+                viewModel.updateMovieStatus(updatedMovie)
+                Toast.makeText(requireContext(), "Removed from Watch List", Toast.LENGTH_SHORT).show()
+
+            }
+        }).attachToRecyclerView(binding.WatchList)
+
+        ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val movie = historyAdapter.currentList[viewHolder.getBindingAdapterPosition()]
+                val updatedMovie = movie.copy(isInWatchList = false, isWatched = false)
+                viewModel.updateMovieStatus(updatedMovie)
+                Toast.makeText(requireContext(), "Removed from Watch History", Toast.LENGTH_SHORT).show()
+
+            }
+        }).attachToRecyclerView(binding.History)
+
         viewModel.favoriteMovies.observe(viewLifecycleOwner) { movies ->
-            // לוגיקה: סרטים שהם מועדפים (כבר בתוך הרשימה) וגם isWatched הוא false
-            val watchList = movies.filter { !it.isWatched }
+            val watchList = movies.filter { it.isInWatchList && !it.isWatched }
             watchListAdapter.submitList(watchList)
         }
 

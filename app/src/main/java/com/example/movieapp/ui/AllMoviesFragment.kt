@@ -9,7 +9,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAllMoviesBinding
@@ -58,6 +60,32 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
         }
 
         setupNavigation()
+
+        ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // שימוש ב-currentList של ה-ListAdapter - הכי פשוט ומהיר
+                val movie = adapter.currentList[viewHolder.getBindingAdapterPosition()]
+
+                if (movie.isManualEntry) {
+                    // קריאה לפונקציה ב-ViewModel שמריצה Coroutine ברקע
+                    viewModel.deleteMovie(movie)
+                    Toast.makeText(requireContext(), "Movie deleted", Toast.LENGTH_SHORT).show()
+                } else {
+                    // החזרה למקום אם זה מה-API
+                    adapter.notifyItemChanged(viewHolder.getBindingAdapterPosition())
+                    Toast.makeText(requireContext(), "Cannot delete API movies", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }).attachToRecyclerView(binding.AllMovies)
     }
 
     override fun onMovieClick(id: Int) {
@@ -73,6 +101,7 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
             Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun setupNavigation() {
         binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_favoritesFragment) }
         binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_watchListFragment) }
