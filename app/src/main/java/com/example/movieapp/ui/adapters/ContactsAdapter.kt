@@ -49,14 +49,6 @@ class ContactsAdapter(
                 binding.contactPhone.isVisible = false
             }
 
-            // טיפול באימייל במידה וקיים במודל שלך
-            if (contact.email.isNotEmpty()) {
-                binding.contactEmail.text = contact.email
-                binding.contactEmail.isVisible = true
-            } else {
-                binding.contactEmail.isVisible = false
-            }
-
             // הגדרת הלחיצה בצורה בטוחה בתוך ה-bind
             itemView.setOnClickListener {
                 listener.onItemClicked(contact)

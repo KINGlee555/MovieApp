@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"> <TextView
-    android:id="@+id/tvShareTitle"
+    android:id="@+id/ShareTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="בחר איש קשר לשיתוף הסרט"
@@ -16,6 +16,15 @@
     android:padding="16dp"
     app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search contact..."
+        app:layout_constraintTop_toBottomOf="@id/ShareTitle" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewContacts"
         android:layout_width="0dp"
@@ -24,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvShareTitle"
+        app:layout_constraintTop_toBottomOf="@id/searchViewContacts"
         tools:listitem="@layout/contact_item" />
 
     <ProgressBar

@@ -21,6 +21,7 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
     val contactHelper =ContactHelper ()
     private val _contacts = MutableLiveData<Resource<List<Contact>>>()
     val contacts: LiveData<Resource<List<Contact>>> = _contacts
+    private var allContacts: List<Contact> = emptyList()
 
     fun loadContacts() {
         _contacts.value = Resource.loading()
@@ -34,6 +35,7 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
                         _contacts.value = Resource.error("No contacts found")
                     } else {
                         _contacts.value = Resource.success(fetchedContacts)
+                        allContacts = fetchedContacts
                     }
                 }
             } catch (e: Exception) {
@@ -42,5 +44,16 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
                 }
             }
         }
+    }
+    fun filterContacts(query: String) {
+        val filtered = if (query.isEmpty()) {
+            allContacts
+        } else {
+            allContacts.filter {
+                it.name.contains(query, ignoreCase = true) ||
+                        it.phoneNumber.contains(query)
+            }
+        }
+        _contacts.value = Resource.success(filtered)
     }
 }

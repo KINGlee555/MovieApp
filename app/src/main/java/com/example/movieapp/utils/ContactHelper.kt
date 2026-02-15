@@ -39,12 +39,11 @@ class ContactHelper {
             // In this example, I'm getting all the contacts that have either a phone number or an email.
             // in SQL it would be something like this:
             // ...WHERE HAS_PHONE_NUMBER <> 0 AND (MIMETYPE = Email OR MIMETYPE = Phone)
-            ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND(" + ContactsContract.Data.MIMETYPE + "=? OR " + ContactsContract.Data.MIMETYPE + "=?)",
+            ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND(" + ContactsContract.Data.MIMETYPE + "=?)",
 
             // This array holds the parameters used in the selection part.
             // The question marks in the selection string will be replaced by the objects in the array, in the order they are inserted.
             arrayOf(
-                ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE,
                 ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
             ),
 
@@ -73,11 +72,7 @@ class ContactHelper {
                 val data1 =
                     cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.DATA1))
 
-                val mimeType =
-                    cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.MIMETYPE))
-
-
-                contacts.addContact(contactsId,contactName,data1,mimeType)
+                contacts.addContact(contactsId,contactName,data1)
 
             } while (cursor.moveToNext())
         }
@@ -87,20 +82,14 @@ class ContactHelper {
     private fun ArrayList<Contact>.addContact(
         contactId:Int,
         contactName:String,
-        data1:String,
-        mimeType: String
+        data1:String?
     ) {
-        if(data1 != null) {
+        if(data1 != null && this.none { it.id == contactId }) {
 
             val contact = Contact()
-
-            when(mimeType) {
-                ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE -> contact.email = data1
-                ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> contact.phoneNumber = data1
-            }
-
             contact.id = contactId
             contact.name = contactName
+            contact.phoneNumber = data1
 
             add(contact)
         }

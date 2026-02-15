@@ -84,6 +84,17 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
                 }
             }
         }
+        binding.searchViewContacts.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.filterContacts(newText ?: "")
+                return true
+            }
+        })
     }
 
     private fun checkPermissionAndLoad() {
