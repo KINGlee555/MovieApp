@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.movieapp.data.models.Movie
 
-@Dao
+@Dao// אחראי על הפעולות מול בסיס הנתונים
 interface MovieDao {
 
     @Query("SELECT * FROM movies")
@@ -33,3 +33,6 @@ interface MovieDao {
     @Query("DELETE FROM movies WHERE isFavorite = 0 AND isWatched = 0")
     suspend fun clearCachedMovies()
 }
+/*
+
+ */

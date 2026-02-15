@@ -17,7 +17,7 @@ class MovieRepository @Inject constructor(
     private val movieDao: MovieDao
 ) {
 
-    // שימוש בפונקציית המרצה למשיכה ושמירה אוטומטית
+    // שימוש בפונקציה  למשיכה ושמירה אוטומטית
     fun getPopularMovies() = performFetchingAndSaving(
         localDbFetch = { movieDao.getAllMovies() },
         remoteDbFetch = {
@@ -105,3 +105,11 @@ class MovieRepository @Inject constructor(
         movieDao.deleteMovie(movie)
         }
 }
+/*
+ה-Repository הוא "מקור המידע היחיד" של
+האפליקציה. הוא מחבר בין האינטרנט (MovieService)
+לבין בסיס הנתונים המקומי (MovieDao). במקום
+שהמסך יחליט מאיפה להביא מידע, הוא מבקש
+מה-Repository, וה-Repository מחליט אם להביא
+מהטלפון או מהשרת.
+ */

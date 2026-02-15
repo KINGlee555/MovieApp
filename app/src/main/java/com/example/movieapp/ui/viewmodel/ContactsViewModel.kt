@@ -57,3 +57,11 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
         _contacts.value = Resource.success(filtered)
     }
 }
+/*
+ה-ContactsViewModel מאפשר למשוך את
+רשימת אנשי הקשר מהמכשיר ולהציג אותם
+למשתמש. המטרה היא לאפשר למשתמש לבחור
+איש קשר ולשלוח לו המלצה על סרט (דרך SMS
+או אפליקציות אחרות) בצורה מהירה ונוחה מבלי
+לצאת מהאפליקציה.
+ */

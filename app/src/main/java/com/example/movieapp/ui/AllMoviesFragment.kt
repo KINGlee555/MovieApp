@@ -108,3 +108,12 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
         binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_searchFragment) }
     }
 }
+/*
+זהו מסך הבית של האפליקציה. הוא משתמש
+ב-RecyclerView כדי להציג את הסרטים. המסך
+מחובר ל-ViewModel בעזרת LiveData, מה
+שמאפשר לו להתעדכן אוטומטית ברגע שהנתונים
+משתנים. בנוסף, הוספתי יכולות של מחיקה
+בהחלקה (Swipe) ועריכה
+ בלחיצה ארוכה עבור סרטים שהמשתמש הוסיף ידנית
+ */
