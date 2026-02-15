@@ -60,6 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/movieRating" />
 
         <LinearLayout
+            android:id="@+id/buttonRow1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -72,8 +73,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add to Favorites"
-                android:textSize= "10dp"
+                android:text="Favorites"
+                android:textSize="12sp"
                 app:icon="@android:drawable/btn_star_big_off" />
 
             <com.google.android.material.button.MaterialButton
@@ -83,9 +84,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Add to Watch List"
-                android:textSize= "10dp"
+                android:text="Watch List"
+                android:textSize="12sp"
                 app:icon="@android:drawable/checkbox_off_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/buttonRow1">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnToggleWatched"
@@ -93,10 +103,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="Watched"
+                android:textSize="12sp"
+                app:icon="@android:drawable/ic_menu_view" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShareMovie"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Mark as Watched"
-                android:textSize= "12dp"
-                app:icon="@android:drawable/checkbox_off_background" />
+                android:text="Share Movie"
+                android:textSize="12sp"
+                app:icon="@android:drawable/ic_menu_share" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

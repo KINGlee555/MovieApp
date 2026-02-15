@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.movieapp.R
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
@@ -31,7 +33,7 @@ class MovieDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,6 +70,14 @@ class MovieDetailsFragment : Fragment() {
         }
         binding.btnToggleWatchList.setOnClickListener {
             viewModel.toggleWatchList()
+        }
+
+        binding.btnShareMovie.setOnClickListener {
+            val movieName = binding.movieTitle.text.toString()
+            val bundle = Bundle().apply {
+                putString("movieTitle", movieName)
+            }
+            findNavController().navigate(R.id.action_movieDetailsFragment_to_shareMovieFragment, bundle)
         }
 
 

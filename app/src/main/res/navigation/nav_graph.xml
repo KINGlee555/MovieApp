@@ -20,9 +20,6 @@
             android:id="@+id/action_allMoviesFragment_to_watchListFragment"
             app:destination="@id/watchListFragment" />
         <action
-            android:id="@+id/action_allMoviesFragment_to_cinemaFragment"
-            app:destination="@id/cinemaFragment" />
-        <action
             android:id="@+id/action_allMoviesFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
@@ -35,10 +32,9 @@
         android:name="com.example.movieapp.ui.MovieDetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_movie_details">
-        <argument
-            android:name="id"
-            app:argType="integer"
-            android:defaultValue="1"/>
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_shareMovieFragment"
+            app:destination="@id/shareMovieFragment" />
     </fragment>
 
     <fragment
@@ -96,10 +92,11 @@
         android:label="Edit Movie"
         tools:layout="@layout/fragment_edit_movie" />
 
+
     <fragment
-        android:id="@+id/cinemaFragment"
-        android:name="com.example.movieapp.ui.CinemaFragment"
-        android:label="Cinema"
-        tools:layout="@layout/fragment_cinema" />
+        android:id="@+id/shareMovieFragment"
+        android:name="com.example.movieapp.ui.ShareMovieFragment"
+        android:label="Share Movie"
+        tools:layout="@layout/fragment_share_movie" />
 
 </navigation>

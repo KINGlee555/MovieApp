@@ -105,7 +105,6 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
     private fun setupNavigation() {
         binding.btnNavFav.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_favoritesFragment) }
         binding.btnNavWatch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_watchListFragment) }
-        binding.btnNavCinema.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_cinemaFragment) }
         binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_searchFragment) }
     }
 }
