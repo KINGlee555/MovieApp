@@ -10,16 +10,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
-
+/*
+The Repository acts as the single source of truth for all movie data
+ */
 @Singleton
 class MovieRepository @Inject constructor(
     private val movieService: MovieService,
     private val movieDao: MovieDao
 ) {
 
-    // שימוש בפונקציה  למשיכה ושמירה אוטומטית
+    /*
+    fetching data from the API and updating the local Room database as the source of truth.
+     */
     fun getPopularMovies() = performFetchingAndSaving(
+        /*
+            Immediately fetch and display data from the local database for a fast UI response
+
+         */
         localDbFetch = { movieDao.getAllMovies() },
+        /*
+        Simultaneously, fetch fresh data from the network in the background
+         */
         remoteDbFetch = {
             val response = movieService.getPopularMovies(Constants.API_KEY)
             if (response.isSuccessful && response.body() != null) {
@@ -28,8 +39,58 @@ class MovieRepository @Inject constructor(
                 Resource.error("Failed to fetch movies")
             }
         },
+        /*
+        After fetching from network, save the results to the local DB
+         */
         localDbSave = { remoteMovies ->
             remoteMovies.forEach { remoteMovie ->
+                val localMovie=movieDao.getMovieSync(remoteMovie.id)
+                if (localMovie != null) {
+                    /*
+    If movie exists locally, preserve user-added data
+                     */
+                    val flagMovie = remoteMovie.copy(
+                        isFavorite = localMovie.isFavorite,
+                        isWatched = localMovie.isWatched,
+                        isInWatchList = localMovie.isInWatchList,
+                        isManualEntry = localMovie.isManualEntry,
+                        rating = if (localMovie.isManualEntry){
+                            localMovie.rating
+                        }
+                        else{
+                            remoteMovie.rating
+                        }
+                    )
+                    movieDao.updateMovie(flagMovie)
+                } else {
+                    movieDao.insertMovie(remoteMovie)
+                }
+            }}
+    )
+
+
+    fun getFavoriteMovies() = movieDao.getFavoriteMovies()
+    fun getWatchedMovies() = movieDao.getWatchedMovies()
+
+    fun getMovie(id: Int) = performFetchingAndSaving(
+        localDbFetch = { movieDao.getMovie(id) },
+        remoteDbFetch = {
+            val localMovie = movieDao.getMovieSync(id)
+            /*
+            If the movie was added manually, don't fetch it from the network
+             */
+            if (localMovie?.isManualEntry == true) {
+                Resource.success(localMovie)
+            } else {
+                val response = movieService.getMovieDetails(id, Constants.API_KEY)
+                if (response.isSuccessful && response.body() != null) {
+                    Resource.success(response.body()!!)
+                } else {
+                    Resource.error("Failed to fetch movie details from API")
+                }
+            }
+        },
+        localDbSave = { remoteMovie ->
             val localMovie=movieDao.getMovieSync(remoteMovie.id)
             if (localMovie != null) {
                 val flagMovie = remoteMovie.copy(
@@ -48,50 +109,11 @@ class MovieRepository @Inject constructor(
             } else {
                 movieDao.insertMovie(remoteMovie)
             }
-        }}
-    )
-
-    // שאר הפונקציות נשארות רגילות כי הן לא דורשות Fetching & Saving מורכב
-    fun getFavoriteMovies() = movieDao.getFavoriteMovies()
-    fun getWatchedMovies() = movieDao.getWatchedMovies()
-
-    fun getMovie(id: Int) = performFetchingAndSaving(
-        localDbFetch = { movieDao.getMovie(id) },
-        remoteDbFetch = {
-            val localMovie = movieDao.getMovieSync(id)
-            if (localMovie?.isManualEntry == true) {
-                Resource.success(localMovie)
-            } else {
-                val response = movieService.getMovieDetails(id, Constants.API_KEY)
-                if (response.isSuccessful && response.body() != null) {
-                    Resource.success(response.body()!!)
-                } else {
-                    Resource.error("Failed to fetch movie details from API")
-                }
-            }
-        },
-        localDbSave = { remoteMovie ->
-            val localMovie=movieDao.getMovieSync(remoteMovie.id)
-        if (localMovie != null) {
-            val flagMovie = remoteMovie.copy(
-                isFavorite = localMovie.isFavorite,
-                isWatched = localMovie.isWatched,
-                isInWatchList = localMovie.isInWatchList,
-                isManualEntry = localMovie.isManualEntry,
-                rating = if (localMovie.isManualEntry){
-                    localMovie.rating
-                }
-                else{
-                    remoteMovie.rating
-                }
-            )
-            movieDao.updateMovie(flagMovie)
-        } else {
-            movieDao.insertMovie(remoteMovie)
-        }
         }
     )
-
+    /*
+    Basic suspend functions that perform database operations in the background instead of blocking the UI
+     */
     suspend fun updateMovie(movie: Movie) = withContext(Dispatchers.IO) {
         movieDao.updateMovie(movie)
     }
@@ -103,7 +125,7 @@ class MovieRepository @Inject constructor(
     }
     suspend fun deleteMovie(movie: Movie) = withContext(Dispatchers.IO) {
         movieDao.deleteMovie(movie)
-        }
+    }
 }
 /*
 ה-Repository הוא "מקור המידע היחיד" של

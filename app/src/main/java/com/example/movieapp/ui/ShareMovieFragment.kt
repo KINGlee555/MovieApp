@@ -44,6 +44,7 @@ class ShareMovieFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,

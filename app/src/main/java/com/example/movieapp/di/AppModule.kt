@@ -14,20 +14,27 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-
+/*
+This module tells Hilt how to create and provide shared component
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
     @Singleton
+            /*
+        Provide the API interface so Retrofit can automatically handle the network calls
+             */
     fun provideRetrofit(gson: Gson) : Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
-
+    /*
+    Provides a Gson for converting JSON data into Kotlin objects
+     */
     @Provides
     fun provideGson() : Gson = GsonBuilder().create()
     @Provides
