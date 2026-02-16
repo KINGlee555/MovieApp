@@ -46,35 +46,35 @@ class WatchListFragment : Fragment() {
             }
             override fun onMovieLongClick(movie: Movie) {
                 if (movie.isManualEntry) {
-                    // יצירת Bundle עם האובייקט (הסרט כבר Parcelable)
+
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
-                    // ניווט למסך העריכה עם הנתונים
+
                     findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
                 } else {
-                    // אופציונלי: להציג הודעה שלא ניתן לערוך סרטים מה-API
-                    Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
         val historyAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(id: Int) {
-                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to id))
+                Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
             }
             override fun onMovieLongClick(movie: Movie) {
                 if (movie.isManualEntry) {
-                    // יצירת Bundle עם האובייקט (הסרט כבר Parcelable)
+
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
                     // ניווט למסך העריכה עם הנתונים
                     findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
-                } else {
-                    // אופציונלי: להציג הודעה שלא ניתן לערוך סרטים מה-API
-                    Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
-                }
+                }   else {
+                // Notify the user that only manual entries can be edited
+                Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
+            }
             }
         })
 
@@ -137,3 +137,9 @@ class WatchListFragment : Fragment() {
         }
     }
 }
+/*
+                } else {
+                    // Notify the user that only manual entries can be edited
+                    Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
+                }
+ */

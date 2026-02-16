@@ -31,4 +31,27 @@
     <string name="movie_deleted">Movie deleted</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="are_you_sure_you_want_to_delete_this_movie">Are you sure you want to delete this movie?</string>
+    <string name="click_to_select_image">Click to select image</string>
+    <string name="movie_name_hint">Movie Name</string>
+    <string name="movie_desc_hint">Overview</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="add_to_watchlist">Add to watchlist</string>
+    <string name="mark_as_watched">Mark as watched</string>
+    <string name="discover_movies">Discover Movies</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_watchlist">Watchlist</string>
+    <string name="nav_search">Search</string>
+    <string name="add_manual_movie_desc">Add movie manually</string>
+    <string name="share_movie">Share Movie</string>
+    <string name="search_hint">Search for movies...</string>
+    <string name="no_movies_found">No movies found. Try another search!</string>
+    <string name="select_contact_title">Select a contact to share the movie</string>
+    <string name="search_contact_hint">Search contact...</string>
+    <string name="watch_list_header">Watch List</string>
+    <string name="history_header">Viewing History</string>
+    <string name="edit_manual_only_error">Only manual entries can be edited</string>
+    <string name="share_movie_message">Hey! I recommend watching the movie: %1$s. It\'s great!</string>
+    <string name="error_cannot_send_sms">Cannot open messaging app</string>
+    <string name="permission_denied_contacts">Permission denied to read contacts</string>
+
 </resources>

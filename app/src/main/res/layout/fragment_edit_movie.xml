@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-
     <ImageView
         android:id="@+id/imgPosterPreview"
         android:layout_width="120dp"
@@ -13,18 +12,14 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_gallery"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/Desc"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="?attr/selectableItemBackground" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="לחץ לבחירת תמונה"
-        app:layout_constraintTop_toTopOf="@id/imgPosterPreview"
-        app:layout_constraintBottom_toBottomOf="@id/imgPosterPreview"
-        app:layout_constraintStart_toEndOf="@id/imgPosterPreview"
-        android:layout_marginStart="16dp"/>
+        android:text="@string/click_to_select_image"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"/>
 
     <RatingBar
         android:id="@+id/movieRating"
@@ -33,19 +28,18 @@
         android:layout_height="wrap_content"
         android:numStars="10"
         android:stepSize="0.1"
-        android:isIndicator="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+        android:isIndicator="false" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="שם הסרט">
+        android:hint="@string/movie_name_hint">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/EditMovieTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -53,25 +47,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="תקציר הסרט">
+        android:hint="@string/movie_desc_hint">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/EditMovieDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="4"
-            android:gravity="top" />
+            android:gravity="top"
+            android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/EditWatchListbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="In Watch List" />
+        android:text="@string/add_to_watchlist" />
 
     <Button
         android:id="@+id/btnUpdateMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="שמור שינויים" />
+        android:text="@string/save_changes" />
 </LinearLayout>

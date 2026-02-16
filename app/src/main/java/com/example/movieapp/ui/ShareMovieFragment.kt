@@ -29,7 +29,7 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
     private val viewModel: ContactsViewModel by viewModels()
     private var movieTitle: String? = null
 
-    // ניהול הרשאות כפי שהמרצה ביקש
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -48,7 +48,7 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentShareMovieBinding.bind(view)
 
-        // שליפת שם הסרט מה-Bundle (בלי navArgs)
+
         movieTitle = arguments?.getString("movieTitle")
 
         setupRecyclerView()
@@ -56,7 +56,7 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
     }
 
     private fun setupRecyclerView() {
-        // אתחול האדפטר המתוקן עם ה-Listener
+
         val adapter = ContactsAdapter(emptyList()) { contact ->
             movieTitle?.let { title ->
                 sendSms(contact.phoneNumber, title)
@@ -64,7 +64,7 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
         }
         binding.recyclerViewContacts.adapter = adapter
 
-        // צפייה בנתונים דרך ה-Resource (Loading/Success/Error)
+
         viewModel.contacts.observe(viewLifecycleOwner) { resource ->
             when (val status = resource.status) {
                 is Loading -> {
@@ -107,18 +107,27 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
         }
     }
 
-    // פונקציית השליחה הפשוטה שביקשת
+    /**
+     * Helper function to launch the device's SMS application with a pre-filled recommendation message.
+     * Uses Intent.ACTION_SENDTO to ensure only SMS apps handle the intent.
+     */
     private fun sendSms(phoneNumber: String, movieName: String) {
-        val message = "היי! אני ממליץ לך לצפות בסרט: $movieName. הוא ממש טוב!"
+        // Constructing the localized message using string resources for full localization support
+        val message = getString(R.string.share_movie_message, movieName)
+
         val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("smsto:$phoneNumber") // פתיחת אפליקציית ה-SMS
+            data = Uri.parse("smsto:$phoneNumber")
             putExtra("sms_body", message)
         }
+
         try {
             startActivity(intent)
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "לא ניתן לשלוח הודעה", Toast.LENGTH_SHORT).show()
+            // Localization fix: Replacing hardcoded error message with getString
+            Toast.makeText(requireContext(), getString(R.string.error_cannot_send_sms), Toast.LENGTH_SHORT).show()
         }
     }
+
 }
+
 

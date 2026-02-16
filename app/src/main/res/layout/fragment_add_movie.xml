@@ -1,77 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/imgPosterPreview"
             android:layout_width="120dp"
             android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_gallery"
             android:background="?attr/selectableItemBackground"
-            app:layout_constraintTop_toBottomOf="@id/Desc"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="לחץ לבחירת תמונה"
-            app:layout_constraintTop_toTopOf="@id/imgPosterPreview"
-            app:layout_constraintBottom_toBottomOf="@id/imgPosterPreview"
-            app:layout_constraintStart_toEndOf="@id/imgPosterPreview"
-            android:layout_marginStart="16dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/click_to_select_image" />
 
         <RatingBar
             android:id="@+id/movieRating"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            style="@style/Widget.AppCompat.RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:isIndicator="false"
-            android:numStars="10"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+            android:numStars="5"
+            android:stepSize="0.5" />
 
         <EditText
             android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="שם הסרט"/>
+            android:hint="@string/movie_name_hint"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/Desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="תקציר"
-            android:lines="3"/>
+            android:hint="@string/movie_desc_hint"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:minHeight="48dp" />
 
         <CheckBox
             android:id="@+id/Favoritebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="הוסף למועדפים"/>
+            android:text="@string/add_to_favorites" />
 
         <CheckBox
             android:id="@+id/WatchListbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="הוספה לרשימת צפייה" />
+            android:text="@string/add_to_watchlist" />
 
         <CheckBox
             android:id="@+id/Watchedbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="סימון כנצפה"/>
+            android:text="@string/mark_as_watched" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="שמור סרט"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/save_movie" />
+
     </LinearLayout>
 </ScrollView>

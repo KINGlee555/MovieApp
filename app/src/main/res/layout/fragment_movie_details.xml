@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Favorites"
+                android:text="@string/nav_favorites"
                 android:textSize="12sp"
                 app:icon="@android:drawable/btn_star_big_off" />
 
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Watch List"
+                android:text="@string/nav_watchlist"
                 android:textSize="12sp"
                 app:icon="@android:drawable/checkbox_off_background" />
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Watched"
+                android:text="@string/mark_as_watched"
                 android:textSize="12sp"
                 app:icon="@android:drawable/ic_menu_view" />
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Share Movie"
+                android:text="@string/share_movie"
                 android:textSize="12sp"
                 app:icon="@android:drawable/ic_menu_share" />
         </LinearLayout>
