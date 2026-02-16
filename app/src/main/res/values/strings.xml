@@ -53,5 +53,6 @@
     <string name="share_movie_message">Hey! I recommend watching the movie: %1$s. It\'s great!</string>
     <string name="error_cannot_send_sms">Cannot open messaging app</string>
     <string name="permission_denied_contacts">Permission denied to read contacts</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
 
 </resources>

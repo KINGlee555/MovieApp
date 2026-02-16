@@ -45,15 +45,15 @@ class FavoritesFragment : Fragment() {
 
             override fun onMovieLongClick(movie: Movie) {
                 if (movie.isManualEntry) {
-                    // יצירת Bundle עם האובייקט (הסרט כבר Parcelable)
+
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
                     // ניווט למסך העריכה עם הנתונים
                     findNavController().navigate(R.id.action_favoritesFragment_to_editMovieFragment, bundle)
                 } else {
-                    // אופציונלי: להציג הודעה שלא ניתן לערוך סרטים מה-API
-                    Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -72,7 +72,7 @@ class FavoritesFragment : Fragment() {
                 val movie = favoriteAdapter.currentList[viewHolder.getBindingAdapterPosition()]
                 val updatedMovie = movie.copy(isFavorite = false)
                 viewModel.updateMovieStatus(updatedMovie)
-                Toast.makeText(requireContext(), "הוסר מהמועדפים", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.removed_from_favorites), Toast.LENGTH_SHORT).show()
 
             }
         }).attachToRecyclerView(binding.Favorites)

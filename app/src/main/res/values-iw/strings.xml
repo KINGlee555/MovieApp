@@ -53,5 +53,6 @@
     <string name="share_movie_message">היי! אני ממליץ לך לצפות בסרט: %1$s. הוא ממש טוב!</string>
     <string name="error_cannot_send_sms">לא ניתן לפתוח את אפליקציית ההודעות</string>
     <string name="permission_denied_contacts">אין הרשאה לגישה לאנשי קשר</string>
-    <string name="edit_manual_only_error">ניתן לערוך רק סרטים שהוספו ידנית</string>
+
+    <string name="removed_from_favorites">הוסר מהמועדפים</string>
 </resources>
