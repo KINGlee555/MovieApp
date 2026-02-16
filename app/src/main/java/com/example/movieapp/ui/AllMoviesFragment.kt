@@ -76,11 +76,11 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
                 val movie = adapter.currentList[viewHolder.getBindingAdapterPosition()]
 
                 if (movie.isManualEntry) {
-                    // קריאה לפונקציה ב-ViewModel שמריצה Coroutine ברקע
+
                     viewModel.deleteMovie(movie)
                     Toast.makeText(requireContext(), "Movie deleted", Toast.LENGTH_SHORT).show()
                 } else {
-                    // החזרה למקום אם זה מה-API
+
                     adapter.notifyItemChanged(viewHolder.getBindingAdapterPosition())
                     Toast.makeText(requireContext(), "Cannot delete API movies", Toast.LENGTH_SHORT).show()
                 }
@@ -98,7 +98,8 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
             }
             findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
         } else {
-            Toast.makeText(requireContext(), "ניתן לערוך רק סרטים שהוספו ידנית", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
+
         }
     }
 
@@ -109,11 +110,11 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
     }
 }
 /*
-זהו מסך הבית של האפליקציה. הוא משתמש
-ב-RecyclerView כדי להציג את הסרטים. המסך
-מחובר ל-ViewModel בעזרת LiveData, מה
-שמאפשר לו להתעדכן אוטומטית ברגע שהנתונים
-משתנים. בנוסף, הוספתי יכולות של מחיקה
-בהחלקה (Swipe) ועריכה
- בלחיצה ארוכה עבור סרטים שהמשתמש הוסיף ידנית
+ * AllMoviesFragment serves as the main home screen of the application.
+ * It utilizes a RecyclerView to display movies fetched from both the API and the local database.
+ * The fragment observes LiveData from the MovieViewModel to ensure real-time UI updates.
+ * Features include:
+ * - Swipe-to-delete functionality for manual entries.
+ * - Long-click interaction for editing user-added movies.
+ * - Seamless navigation between movie details, favorites, and search screens.
  */

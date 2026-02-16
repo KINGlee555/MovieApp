@@ -55,4 +55,10 @@
     <string name="permission_denied_contacts">אין הרשאה לגישה לאנשי קשר</string>
 
     <string name="removed_from_favorites">הוסר מהמועדפים</string>
+    <string name="movie_saved_successfully">הסרט נשמר בהצלחה!</string>
+    <string name="please_fill_in_all_fields">נא למלא את כל השדות</string>
+    <string name="please_select_a_poster">נא לבחור תמונה לסרט</string>
+    <string name="edit_manual_only_error">ניתן לערוך רק סרטים שהוספו ידנית</string>
+    <string name="movie_deleted_success">הסרט נמחק בהצלחה</string>
+    <string name="cannot_delete_api_error">לא ניתן למחוק סרטים שמגיעים מהשרת</string>
 </resources>

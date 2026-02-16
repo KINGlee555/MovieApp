@@ -51,23 +51,24 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                 val newMovie = Movie(
                     id = if (uniqueId < 0) -uniqueId else uniqueId,
                     title = title,
-                    posterPath = selectedImageUri, // בהוספה ידנית אין לנו תמונה מה-API
+                    posterPath = selectedImageUri,
                     overview = desc,
                     rating = binding.movieRating.rating.toDouble(),
                     isFavorite = binding.Favoritebtn.isChecked,
                     isWatched = binding.Watchedbtn.isChecked,
-                    isInWatchList = binding.WatchListbtn.isChecked, // שמירת הסטטוס החדש
+                    isInWatchList = binding.WatchListbtn.isChecked,
                     isManualEntry = true
                 )
 
-                viewModel.addMovie(newMovie)
-                Toast.makeText(requireContext(), "הסרט נשמר בהצלחה", Toast.LENGTH_SHORT).show()
+                viewModel.addMovie(newMovie)                // Localization fix: Success message using string resources
+                Toast.makeText(requireContext(), getString(R.string.movie_saved_successfully), Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             } else if (title.isEmpty() || desc.isEmpty()) {
-                Toast.makeText(requireContext(), "נא למלא את כל השדות", Toast.LENGTH_SHORT).show()
+                // Localization fix: Error message for empty fields
+                Toast.makeText(requireContext(), getString(R.string.please_fill_in_all_fields), Toast.LENGTH_SHORT).show()
             } else if (selectedImageUri == null) {
-                Toast.makeText(requireContext(), "Please select a poster", Toast.LENGTH_SHORT)
-                    .show()
+                // Localization fix: Error message for missing image
+                Toast.makeText(requireContext(), getString(R.string.please_select_a_poster), Toast.LENGTH_SHORT).show()
             }
         }
     }
