@@ -1,7 +1,9 @@
 package com.example.movieapp.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,7 +20,7 @@ import com.example.movieapp.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
+class AddMovieFragment : Fragment() {
 
     private val viewModel: MovieViewModel by activityViewModels()
     private var binding: FragmentAddMovieBinding by autoCleared()
@@ -33,6 +35,14 @@ class AddMovieFragment : Fragment(R.layout.fragment_add_movie) {
                 Glide.with(this).load(uri).fitCenter().into(binding.imgPosterPreview)
             }
         }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAddMovieBinding.inflate(inflater,container,false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

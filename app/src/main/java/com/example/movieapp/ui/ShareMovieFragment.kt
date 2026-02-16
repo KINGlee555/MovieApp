@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -23,7 +25,7 @@ import com.example.movieapp.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
+class ShareMovieFragment : Fragment() {
 
     private var binding: FragmentShareMovieBinding by autoCleared()
     private val viewModel: ContactsViewModel by viewModels()
@@ -43,7 +45,14 @@ class ShareMovieFragment : Fragment(R.layout.fragment_share_movie) {
             ).show()
         }
     }
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentShareMovieBinding.inflate(inflater,container,false)
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentShareMovieBinding.bind(view)
