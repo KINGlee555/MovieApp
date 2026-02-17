@@ -2,8 +2,8 @@
     <string name="app_name">MovieApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="delete_movie_title" />
-    <string name="delete_movie_msg" />
+    <string name="delete_movie_title" >Delete Movie</string>
+    <string name="delete_movie_msg" >Are you sure you want to delete the Movie?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="edit">Edit</string>
@@ -58,8 +58,8 @@
     <string name="please_fill_in_all_fields">Please fill in all fields</string>
     <string name="please_select_a_poster">Please select a movie poster</string>
 
-    <string name="movie_deleted_success">הסרט נמחק בהצלחה</string>
-    <string name="cannot_delete_api_error">לא ניתן למחוק סרטים שמגיעים מהשרת</string>
+    <string name="movie_deleted_success">Movie Deleted</string>
+    <string name="cannot_delete_api_error">Cannot delete API movies</string>
     <string name="cannot_delete_api_movies">Cannot delete API movies</string>
     <string name="remove_from_favorites">Remove from Favorites</string>
     <string name="mark_as_unwatched">Mark as Unwatched</string>
