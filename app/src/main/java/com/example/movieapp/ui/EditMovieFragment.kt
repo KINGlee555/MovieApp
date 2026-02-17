@@ -54,7 +54,7 @@ class EditMovieFragment : Fragment() {
             binding.EditMovieDescription.setText(currentMovie.overview)
             selectedImageUri = currentMovie.posterPath
             binding.movieRating.rating = currentMovie.rating.toFloat()
-            binding.EditWatchListbtn.isChecked = currentMovie.isInWatchList
+            binding.WatchListbtn.isChecked = currentMovie.isInWatchList
             Glide.with(this)
                 .load(currentMovie.getFullPosterPath())
                 .placeholder(android.R.drawable.ic_menu_gallery)
@@ -66,7 +66,7 @@ class EditMovieFragment : Fragment() {
             binding.btnUpdateMovie.setOnClickListener {
                 val title = binding.EditMovieTitle.text.toString().trim()
                 val overview = binding.EditMovieDescription.text.toString().trim()
-                val isInWatchList = binding.EditWatchListbtn.isChecked
+                val isInWatchList = binding.WatchListbtn.isChecked
                 val rating = binding.movieRating.rating.toDouble()
 
                 if (title.isNotEmpty() && overview.isNotEmpty() && selectedImageUri != null) {
@@ -75,7 +75,10 @@ class EditMovieFragment : Fragment() {
                         overview = overview,
                         posterPath = selectedImageUri,
                         isInWatchList = isInWatchList,
-                        rating = rating
+                        rating = rating,
+                        isFavorite = binding.Favoritebtn.isChecked,
+                        isWatched = binding.Watchedbtn.isChecked,
+                        isManualEntry = true
                     )
                 viewModel.updateMovieStatus(updatedMovie)
                 Toast.makeText(requireContext(), getString(R.string.movie_updated), Toast.LENGTH_SHORT).show()

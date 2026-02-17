@@ -49,7 +49,7 @@ class WatchListFragment : Fragment() {
                         putParcelable("movie", movie)
                     }
 
-                    findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
+                    findNavController().navigate(R.id.action_watchListFragment_to_editMovieFragment, bundle)
                 } else {
 
                     Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
@@ -59,7 +59,8 @@ class WatchListFragment : Fragment() {
 
         val historyAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onMovieClick(id: Int) {
-                Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_watchListFragment_to_movieDetailsFragment, bundleOf("id" to id)
+                )
             }
             override fun onMovieLongClick(movie: Movie) {
                 if (movie.isManualEntry) {
@@ -67,7 +68,7 @@ class WatchListFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
-                    findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
+                    findNavController().navigate(R.id.action_watchListFragment_to_editMovieFragment, bundle)
                 }   else {
                 // Notify the user that only manual entries can be edited
                 Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()

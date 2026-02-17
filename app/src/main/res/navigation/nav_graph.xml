@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_watchListFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_watchListFragment_to_editMovieFragment"
+            app:destination="@id/editMovieFragment" />
     </fragment>
 
     <fragment
