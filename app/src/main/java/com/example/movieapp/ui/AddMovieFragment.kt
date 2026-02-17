@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentAddMovieBinding
-import com.example.movieapp.databinding.FragmentAllMoviesBinding
 import com.example.movieapp.ui.viewmodel.MovieViewModel
 import com.example.movieapp.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
