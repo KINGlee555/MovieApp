@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.movieapp.R
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentEditMovieBinding
 import com.example.movieapp.ui.viewmodel.MovieViewModel
@@ -27,7 +28,6 @@ class EditMovieFragment : Fragment() {
 
     private var selectedImageUri: String? = null
 
-    // הגדרת הלנצ'ר (Launcher) לפתיחת הגלריה
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
             selectedImageUri = uri.toString()
@@ -78,22 +78,15 @@ class EditMovieFragment : Fragment() {
                         rating = rating
                     )
                 viewModel.updateMovieStatus(updatedMovie)
-                Toast.makeText(requireContext(), "Movie Updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.movie_updated), Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
                 else if (title.isEmpty() || overview.isEmpty()) {
-                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.please_fill_in_all_fields), Toast.LENGTH_SHORT).show()
                 } else if (selectedImageUri == null) {
-                    Toast.makeText(requireContext(), "Please select a poster", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.please_select_a_poster), Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 }
-/*
-המסך הזה מאפשר למשתמש לערוך פרטים של סרט שהוא כבר הוסיף
-(כמו שינוי שם, תיאור, דירוג או
-תמונה). הוא מקבל את הסרט הקיים,
- מציג את הפרטים שלו בתוך השדות,
-  ושומר את השינויים חזרה ל-Database.
- */

@@ -60,4 +60,15 @@
     <string name="edit_manual_only_error">ניתן לערוך רק סרטים שהוספו ידנית</string>
     <string name="movie_deleted_success">הסרט נמחק בהצלחה</string>
     <string name="cannot_delete_api_error">לא ניתן למחוק סרטים שמגיעים מהשרת</string>
+    <string name="cannot_delete_api_movies">Cannot delete API movies</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
+    <string name="mark_as_unwatched">Mark as Unwatched</string>
+    <string name="remove_from_watch_list">Remove from Watch List</string>
+    <string name="add_to_watch_list">Add to Watch List</string>
+    <string name="permission_denied_to_read_contacts">Permission denied to read contacts</string>
+    <string name="removed_from_watch_list">Removed from Watch List</string>
+    <string name="removed_from_watch_history">Removed from Watch History</string>
+    <string name="no_contacts_found">No contacts found</string>
+    <string name="an_error_occurred">An error occurred</string>
+    <string name="failed_to_fetch_movie_details_from_api">Failed to fetch movie details from API</string>
 </resources>

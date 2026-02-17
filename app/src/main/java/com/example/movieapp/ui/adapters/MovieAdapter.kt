@@ -8,14 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.MovieLayoutBinding
-import com.example.movieapp.utils.Constants
 
 class MovieAdapter(private val listener: OnMovieClickListener) :
     ListAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
     interface OnMovieClickListener {
         fun onMovieClick(id: Int)
-        fun onMovieLongClick(movie: Movie) // הוספת פונקציה ללחיצה ארוכה המקבלת את כל האובייקט
+        fun onMovieLongClick(movie: Movie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -35,7 +34,6 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
             binding.movieDescription.text = movie.overview
             binding.movieRating.rating = movie.rating.toFloat()
 
-            // שימוש ב-Glide לטעינת התמונה מ-TMDB
             Glide.with(binding.root.context)
                 .load(movie.getFullPosterPath())
                 .placeholder(android.R.drawable.ic_menu_gallery)
@@ -46,12 +44,11 @@ class MovieAdapter(private val listener: OnMovieClickListener) :
             }
             binding.root.setOnLongClickListener {
                 listener.onMovieLongClick(movie)
-                true // החזרת true כדי לציין שהאירוע טופל
+                true
             }
         }
     }
 
-    // מחלקה לחישוב הבדלים בין רשימות - הופך את הרענון למהיר מאוד
     class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem

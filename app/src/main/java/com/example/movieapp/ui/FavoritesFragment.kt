@@ -49,7 +49,6 @@ class FavoritesFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
-                    // ניווט למסך העריכה עם הנתונים
                     findNavController().navigate(R.id.action_favoritesFragment_to_editMovieFragment, bundle)
                 } else {
 
@@ -91,9 +90,3 @@ class FavoritesFragment : Fragment() {
         }
     }
 }
-/*
-הדף מציג למשתמש את רשימת הסרטים שהוא הכי
-אהב. המידע כאן מגיע רק מבסיס הנתונים המקומי (Room) ולא מהאינטרנט,
- מה שאומר שהרשימה הזו זמינה גם ללא חיבור לרשת.
-
- */

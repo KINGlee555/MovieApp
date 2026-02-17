@@ -67,7 +67,6 @@ class WatchListFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putParcelable("movie", movie)
                     }
-                    // ניווט למסך העריכה עם הנתונים
                     findNavController().navigate(R.id.action_allMoviesFragment_to_editMovieFragment, bundle)
                 }   else {
                 // Notify the user that only manual entries can be edited
@@ -96,7 +95,8 @@ class WatchListFragment : Fragment() {
                 val movie =watchListAdapter.currentList[viewHolder.getBindingAdapterPosition()]
                 val updatedMovie = movie.copy(isInWatchList = false, isWatched = false)
                 viewModel.updateMovieStatus(updatedMovie)
-                Toast.makeText(requireContext(), "Removed from Watch List", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.removed_from_watch_list), Toast.LENGTH_SHORT).show()
 
             }
         }).attachToRecyclerView(binding.WatchList)
@@ -115,7 +115,8 @@ class WatchListFragment : Fragment() {
                 val movie = historyAdapter.currentList[viewHolder.getBindingAdapterPosition()]
                 val updatedMovie = movie.copy(isInWatchList = false, isWatched = false)
                 viewModel.updateMovieStatus(updatedMovie)
-                Toast.makeText(requireContext(), "Removed from Watch History", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.removed_from_watch_history), Toast.LENGTH_SHORT).show()
 
             }
         }).attachToRecyclerView(binding.History)
@@ -135,9 +136,3 @@ class WatchListFragment : Fragment() {
         }
     }
 }
-/*
-                } else {
-                    // Notify the user that only manual entries can be edited
-                    Toast.makeText(requireContext(), getString(R.string.edit_manual_only_error), Toast.LENGTH_SHORT).show()
-                }
- */

@@ -42,7 +42,6 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
         binding.AllMovies.layoutManager = LinearLayoutManager(requireContext())
         binding.AllMovies.adapter = adapter
 
-        // טיפול ב-Resource (מצבי הצלחה/טעינה/שגיאה)
         viewModel.allMovies.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 is Success -> {
@@ -72,17 +71,17 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
                 target: RecyclerView.ViewHolder ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // שימוש ב-currentList של ה-ListAdapter - הכי פשוט ומהיר
                 val movie = adapter.currentList[viewHolder.getBindingAdapterPosition()]
 
                 if (movie.isManualEntry) {
 
                     viewModel.deleteMovie(movie)
-                    Toast.makeText(requireContext(), "Movie deleted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.movie_deleted), Toast.LENGTH_SHORT).show()
                 } else {
 
                     adapter.notifyItemChanged(viewHolder.getBindingAdapterPosition())
-                    Toast.makeText(requireContext(), "Cannot delete API movies", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.cannot_delete_api_movies), Toast.LENGTH_SHORT).show()
                 }
             }
         }).attachToRecyclerView(binding.AllMovies)
@@ -109,12 +108,4 @@ class AllMoviesFragment : Fragment(), MovieAdapter.OnMovieClickListener {
         binding.btnNavSearch.setOnClickListener { findNavController().navigate(R.id.action_allMoviesFragment_to_searchFragment) }
     }
 }
-/*
- * AllMoviesFragment serves as the main home screen of the application.
- * It utilizes a RecyclerView to display movies fetched from both the API and the local database.
- * The fragment observes LiveData from the MovieViewModel to ensure real-time UI updates.
- * Features include:
- * - Swipe-to-delete functionality for manual entries.
- * - Long-click interaction for editing user-added movies.
- * - Seamless navigation between movie details, favorites, and search screens.
- */
+

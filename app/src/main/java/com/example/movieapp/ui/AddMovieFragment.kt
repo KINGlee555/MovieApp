@@ -69,7 +69,7 @@ class AddMovieFragment : Fragment() {
                     isManualEntry = true
                 )
 
-                viewModel.addMovie(newMovie)                // Localization fix: Success message using string resources
+                viewModel.addMovie(newMovie)
                 Toast.makeText(requireContext(), getString(R.string.movie_saved_successfully), Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             } else if (title.isEmpty() || desc.isEmpty()) {
@@ -82,9 +82,3 @@ class AddMovieFragment : Fragment() {
         }
     }
 }
-/*
-זה המסך שמאפשר למשתמש להוסיף סרט משלו לאפליקציה.
- המשתמש יכול להזין שם, תיאור, דירוג,
- ולבחור תמונה מהגלריה שלו.
- הסרט נשמר בבסיס הנתונים המקומי (Room) ולא נמחק כשהאפליקציה נסגרת.
- */

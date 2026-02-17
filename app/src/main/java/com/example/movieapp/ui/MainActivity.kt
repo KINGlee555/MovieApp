@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.movieapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint // חובה עבור Hilt ב-Activity
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -17,13 +17,11 @@ class ContactsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        // שימוש ב-ViewBinding כפי שנהוג בשאר הפרויקט שלך
         val binding = ContactItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // העברת האובייקט הספציפי לפונקציית ה-bind
         holder.bind(contacts[position])
     }
 
@@ -36,12 +34,9 @@ class ContactsAdapter(
 
     inner class MyViewHolder(private val binding: ContactItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        // החלפת ה-adapterPosition ב-bindingAdapterPosition העדכני
         fun bind(contact: Contact) {
             binding.contactName.text = contact.name
 
-            // טיפול בטלפון
             if (contact.phoneNumber.isNotEmpty()) {
                 binding.contactPhone.text = contact.phoneNumber
                 binding.contactPhone.isVisible = true
@@ -49,7 +44,6 @@ class ContactsAdapter(
                 binding.contactPhone.isVisible = false
             }
 
-            // הגדרת הלחיצה בצורה בטוחה בתוך ה-bind
             itemView.setOnClickListener {
                 listener.onItemClicked(contact)
             }

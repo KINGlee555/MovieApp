@@ -4,11 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.movieapp.R
 import com.example.movieapp.data.models.Contact
 import com.example.movieapp.utils.ContactHelper
-import dagger.hilt.android.internal.Contexts.getApplication
 import com.example.movieapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +31,7 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
 
                 withContext(Dispatchers.Main) {
                     if (fetchedContacts.isEmpty()) {
-                        _contacts.value = Resource.error("No contacts found")
+                        _contacts.value = Resource.error(R.string.no_contacts_found.toString())
                     } else {
                         _contacts.value = Resource.success(fetchedContacts)
                         allContacts = fetchedContacts
@@ -40,7 +39,7 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _contacts.value = Resource.error(e.message ?: "An error occurred")
+                    _contacts.value = Resource.error(e.message ?: R.string.an_error_occurred.toString())
                 }
             }
         }
@@ -57,11 +56,3 @@ class ContactsViewModel @Inject constructor(application: Application) : AndroidV
         _contacts.value = Resource.success(filtered)
     }
 }
-/*
-ה-ContactsViewModel מאפשר למשוך את
-רשימת אנשי הקשר מהמכשיר ולהציג אותם
-למשתמש. המטרה היא לאפשר למשתמש לבחור
-איש קשר ולשלוח לו המלצה על סרט (דרך SMS
-או אפליקציות אחרות) בצורה מהירה ונוחה מבלי
-לצאת מהאפליקציה.
- */

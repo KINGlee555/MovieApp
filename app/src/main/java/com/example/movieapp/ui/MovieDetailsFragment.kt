@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.data.models.Movie
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
 import com.example.movieapp.ui.viewmodel.MovieViewModel
-import com.example.movieapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.movieapp.utils.Loading
 import com.example.movieapp.utils.Success
 import com.example.movieapp.utils.Error
@@ -24,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
-    // Using autoCleared as shown in SingleCharacterFragment
+
     private var binding: FragmentMovieDetailsBinding by autoCleared()
 
     private val viewModel: MovieViewModel by viewModels()
@@ -41,7 +40,6 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observing movie details status (Loading, Success, Error)
         viewModel.movie.observe(viewLifecycleOwner) { resource ->
             when(resource.status) {
                 is Loading -> {
@@ -89,15 +87,14 @@ class MovieDetailsFragment : Fragment() {
 
     private fun updateUI(movie: Movie) {
         binding.movieTitle.text = movie.title
-        binding.movieDesc.text = movie.overview // Assuming TMDB uses 'overview' or 'description'
+        binding.movieDesc.text = movie.overview
         binding.movieRating.rating = movie.rating.toFloat()
 
-        // Update button states based on local data
         updateButtonsUI(movie.isFavorite, movie.isWatched,movie.isInWatchList)
 
         Glide.with(requireContext())
             .load(movie.getFullPosterPath())
-            .placeholder(android.R.drawable.ic_menu_gallery) // תמונת ברירת מחדל בזמן טעינה
+            .placeholder(android.R.drawable.ic_menu_gallery)
             .error(android.R.drawable.stat_notify_error)
             .fitCenter()
             .into(binding.movieImage)
@@ -105,10 +102,12 @@ class MovieDetailsFragment : Fragment() {
 
     private fun updateButtonsUI(isFavorite: Boolean, isWatched: Boolean, isInWatchList: Boolean) {
         // Update Favorite Button text
-        binding.btnToggleFavorite.text = if (isFavorite) "Remove from Favorites" else "Add to Favorites"
+        binding.btnToggleFavorite.text = if (isFavorite) getString(R.string.remove_from_favorites) else getString(R.string.add_to_favorites)
         // Update Watched Button text
-        binding.btnToggleWatched.text = if (isWatched) "Mark as Unwatched" else "Mark as Watched"
-        binding.btnToggleWatchList.text = if (isInWatchList) "Remove from Watch List" else "Add to Watch List"
+        binding.btnToggleWatched.text = if (isWatched) getString(R.string.mark_as_unwatched) else getString(R.string.mark_as_watched)
+        binding.btnToggleWatchList.text = if (isInWatchList) getString(R.string.remove_from_watch_list) else getString(
+            R.string.add_to_watch_list
+        )
 
     }
 }

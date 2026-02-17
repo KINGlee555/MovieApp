@@ -40,7 +40,7 @@ class ShareMovieFragment : Fragment() {
         } else {
             Toast.makeText(
                 requireContext(),
-                "Permission denied to read contacts",
+                getString(R.string.permission_denied_to_read_contacts),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -117,12 +117,7 @@ class ShareMovieFragment : Fragment() {
         }
     }
 
-    /**
-     * Helper function to launch the device's SMS application with a pre-filled recommendation message.
-     * Uses Intent.ACTION_SENDTO to ensure only SMS apps handle the intent.
-     */
     private fun sendSms(phoneNumber: String, movieName: String) {
-        // Constructing the localized message using string resources for full localization support
         val message = getString(R.string.share_movie_message, movieName)
 
         val intent = Intent(Intent.ACTION_SENDTO).apply {
@@ -133,7 +128,6 @@ class ShareMovieFragment : Fragment() {
         try {
             startActivity(intent)
         } catch (e: Exception) {
-            // Localization fix: Replacing hardcoded error message with getString
             Toast.makeText(requireContext(), getString(R.string.error_cannot_send_sms), Toast.LENGTH_SHORT).show()
         }
     }
